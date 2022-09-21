@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getProfile, getAllProfile } from '../asyncActions/profile';
+import { getProfile, getAllProfile, editProfile } from '../asyncActions/profile';
 import { transfer } from '../asyncActions/transfer';
 import { topup } from '../asyncActions/topup';
 const initialState = {
@@ -37,6 +37,10 @@ const profile = createSlice({
     build.addCase(topup.fulfilled, (state, action) => {
       console.log('ini dari reducers', action.payload.balance);
       state.data.balance = action.payload.balance;
+    });
+    build.addCase(editProfile.fulfilled, (state, action) => {
+      console.log('ini dari reducers detelah edit data', action.payload.result);
+      state.data = action.payload.result[0];
     });
   },
 });

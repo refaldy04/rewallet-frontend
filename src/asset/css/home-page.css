@@ -91,6 +91,10 @@ main {
   margin-bottom: unset;
 }
 
+a {
+  cursor: pointer;
+}
+
 .fw9-history {
   padding: 30px 30px;
   background-color: #ffffff;
@@ -139,8 +143,6 @@ footer p {
 
   color: rgba(239, 239, 239, 0.9);
 }
-
-
 
 @media only screen and (max-width: 768px) {
   main {

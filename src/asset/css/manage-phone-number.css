@@ -34,6 +34,11 @@ main {
   background-color: #e5e5e5;
 }
 
+p.this-is-my-phone {
+  font-size: 2rem !important;
+  color: blueviolet !important;
+}
+
 .fw9-btn-menu {
   background-color: #6379f4;
 }

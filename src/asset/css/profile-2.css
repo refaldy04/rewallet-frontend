@@ -148,6 +148,16 @@ footer p {
   color: rgba(239, 239, 239, 0.9);
 }
 
+.profile-pic-user {
+  max-width: 80px;
+  max-height: 80px;
+  object-fit: cover;
+}
+
+a.pointer {
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 1200px) {
   main {
     padding: 30px;

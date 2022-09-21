@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../component/Navbar';
 import Dropdown from '../component/Dropdown';
 import Footer from '../component/Footer';
@@ -53,7 +53,7 @@ export const AddPhoneNumber = () => {
           <div className="col-lg-9 col-12 mt-5 mt-lg-0 d-flex flex-column gap-2 bg-light rounded-4 fw9-input-amount">
             <h4>Add Phone Number</h4>
             <p>Add at least one phone number for the transfer ID so you can start transfering your money to another user.</p>
-            <div className="mx-auto">
+            <div className="mx-auto d-flex justify-content-center align-items-center add-phone-btn">
               <FormPhone />
 
               {/* <div className="col-auto my-5">
