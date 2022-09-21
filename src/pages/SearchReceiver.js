@@ -135,15 +135,21 @@ export const SearchReceiver = () => {
 
           <div className="col-lg-9 col-12 mt-5 mt-lg-0 d-flex flex-column gap-4 bg-light rounded-4 fw9-search-receiver">
             <p>Search Receiver</p>
-            <Form className="mb-5">
+            <Form
+              className="mb-5"
+              onSubmit={async (event) => {
+                event.preventDefault();
+                await dispatch(getAllProfile(data));
+              }}
+            >
               <InputGroup>
-                <InputGroup.Text id="basic-addon2" onClick={() => dispatch(getAllProfile(data))}>
+                <button type="submit" id="basic-addon2">
                   <IconContext.Provider value={{ size: '1.5rem' }}>
                     <div>
                       <FiSearch />
                     </div>
                   </IconContext.Provider>
-                </InputGroup.Text>
+                </button>
                 <Form.Control type="text" name="search" className="fw9-input-search" placeholder="Search receiver here" aria-label="Username" aria-describedby="addon-wrapping" onChange={handleChangeText} />
               </InputGroup>
             </Form>

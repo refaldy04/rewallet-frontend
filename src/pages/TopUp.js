@@ -23,8 +23,9 @@ function MyVerticallyCenteredModal(props) {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
 
-  const onTopup = async () => {
-    await dispatch(topup({ form, token }));
+  const onTopup = (event) => {
+    event.preventDefault();
+    dispatch(topup({ form, token }));
     navigate('/dashboard');
   };
 
@@ -36,7 +37,7 @@ function MyVerticallyCenteredModal(props) {
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">TopUp Here</Modal.Title>
       </Modal.Header>
-      <Form>
+      <Form onSubmit={onTopup}>
         <Modal.Body>
           <h4 className="mb-5">Input Amount</h4>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -47,7 +48,7 @@ function MyVerticallyCenteredModal(props) {
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={onTopup}>TopUp</Button>
+          <Button type="submit">TopUp</Button>
         </Modal.Footer>
       </Form>
     </Modal>
