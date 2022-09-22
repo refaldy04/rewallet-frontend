@@ -89,7 +89,7 @@ main {
 .fw9-profile-menu {
   padding: 18px 20px;
   background-color: #e5e8ed;
-  width: 380px;
+  width: 100%;
 }
 
 .fw9-profile-menu p {

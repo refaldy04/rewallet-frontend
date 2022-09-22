@@ -59,3 +59,23 @@ export const editProfile = createAsyncThunk('editProfileById/patchData', async (
     return result;
   }
 });
+
+export const editPicture = createAsyncThunk('editProfileById/patchPicture', async (request) => {
+  const result = {};
+  try {
+    var formData = new FormData();
+    formData.append('picture', request.picture);
+    console.log('ini dari profile', request.picture);
+    const { data } = await http(request.token).patch(`/profile/`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    console.log('ini data', data);
+    return data;
+  } catch (e) {
+    console.log('ini error dari profile');
+    result.message = e.response.data?.message;
+    return result;
+  }
+});

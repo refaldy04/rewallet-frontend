@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../component/Navbar';
 import '../asset/css/profile-2.css';
 // import Menu from '../component/Menu';
@@ -11,16 +11,36 @@ import { Link } from 'react-router-dom';
 import Footer from '../component/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/reducers/user';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import { editPicture } from '../redux/asyncActions/profile';
 // import { Button } from 'bootstrap';
 
 export const Profile = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
   const username = useSelector((state) => state.user.username);
   const profile = useSelector((state) => state.profile.data);
+  const [smShow, setSmShow] = useState(false);
+  const handleClose = () => setSmShow(false);
+
+  const token = useSelector((state) => state.user.token);
 
   const dispatch = useDispatch();
 
   const onLogout = () => {
     dispatch(logout());
+  };
+
+  const onEdit = (event) => {
+    event.preventDefault();
+    console.log(selectedImage);
+    dispatch(editPicture({ picture: selectedImage, token }));
+  };
+
+  const handleChange = (event) => {
+    console.log(event.target.files[0]);
+    setSelectedImage(event.target.files[0]);
   };
   return (
     <>
@@ -62,10 +82,26 @@ export const Profile = () => {
           <div className="col-lg-9 col-12 mt-5 mt-lg-0  d-flex flex-column gap-2">
             <div className="bg-light rounded-4 fw9-main d-flex flex-column gap-2 align-items-center">
               <img src={profile.picture ? `https://res.cloudinary.com/dwxrkcas3/image/upload/${profile.picture}` : '/default-profile-pic.jpg'} alt="profile" className="img-fluid mx-auto profile-pic-user rounded" />
-              <a href="facebook.com" className="d-flex mx-auto gap-1 align-items-start">
+              <a className="d-flex mx-auto gap-1 align-items-start" onClick={() => setSmShow(true)}>
                 <img src={Pencil} alt="edit" className="img-fluid mx-auto mt-2" />
                 <p className="text-secondary text-edit">Edit</p>
               </a>
+              <Modal size="sm" show={smShow} onHide={() => setSmShow(false)} aria-labelledby="example-modal-sizes-title-sm" centered>
+                <Modal.Header closeButton>
+                  <Modal.Title id="example-modal-sizes-title-sm">Small Modal</Modal.Title>
+                </Modal.Header>
+                <Form onSubmit={onEdit}>
+                  <Modal.Body className="d-flex flex-column align-items-center">
+                    <Form.Group className="mb-3">
+                      <Form.Control name="picture" type="file" className="text-secondary  text-center" onChange={handleChange} />
+                      <Form.Control.Feedback type="invalid" className="text-center"></Form.Control.Feedback>
+                    </Form.Group>
+                    <Button type="submit" onClick={handleClose}>
+                      Submit
+                    </Button>
+                  </Modal.Body>
+                </Form>
+              </Modal>
               <div className="mx-auto">
                 <h3 className="text-center fw9-fullname">{profile.fullname || username}</h3>
                 <p className="text-center fw9-phone">{profile?.phone_number}</p>
