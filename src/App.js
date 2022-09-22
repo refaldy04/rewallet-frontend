@@ -82,7 +82,14 @@ export class App extends Component {
         />
         <Route path="counter" element={<Count />} />
         <Route path="sign-up" element={<SignUp />} />
-        <Route path="create-pin" element={<CreatePin />} />
+        <Route
+          path="create-pin"
+          element={
+            <PrivateRoute>
+              <CreatePin />
+            </PrivateRoute>
+          }
+        />
         <Route path="create-pin-success" element={<CreatePinSuccess />} />
         <Route
           path="top-up"

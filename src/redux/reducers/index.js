@@ -25,5 +25,12 @@ const reducer = combineReducers({
   profile: persistReducer(profileConfig, profile),
   transfer,
 });
+// const reducer = combineReducers({
+//   berhitung: counter,
+//   character,
+//   user: auth,
+//   profile,
+//   transfer,
+// });
 
 export default reducer;

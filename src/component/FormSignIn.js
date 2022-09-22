@@ -25,7 +25,7 @@ const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
 
   React.useEffect(() => {
     if (successMsg) {
-      navigate('/create-pin', { state: { successMsg } });
+      navigate('/login', { state: { successMsg } });
     }
   }, [navigate, successMsg]);
 
@@ -33,7 +33,7 @@ const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
     <>
       {errorMsg && <Alert variant="danger">{errorMsg}</Alert>}
       <Form noValidate onSubmit={handleSubmit}>
-        <InputGroup className="mb-3" controlId="formBasicUsername">
+        <InputGroup className="mb-3" controlid="formBasicUsername">
           <InputGroup.Text id="basic-addon1">
             <IconContext.Provider value={{ size: '1.5rem' }}>
               <div>
@@ -46,7 +46,7 @@ const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
           {/* <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text> */}
         </InputGroup>
 
-        <InputGroup className="mb-3" controlId="formBasicEmail">
+        <InputGroup className="mb-3" controlid="formBasicEmail">
           <InputGroup.Text id="basic-addon2">
             <IconContext.Provider value={{ size: '1.5rem' }}>
               <div>
@@ -58,7 +58,7 @@ const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
           <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
         </InputGroup>
 
-        <InputGroup className="mb-3" controlId="formBasicPassword">
+        <InputGroup className="mb-3" controlid="formBasicPassword">
           <InputGroup.Text id="basic-addon3">
             <IconContext.Provider value={{ size: '1.5rem' }}>
               <div>

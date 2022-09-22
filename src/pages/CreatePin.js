@@ -4,6 +4,7 @@ import Intro from '../component/Intro';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPin } from '../redux/asyncActions/user';
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../redux/reducers/user';
 
 export const CreatePin = () => {
   const [form, setForm] = useState({ first: '', sec: '', third: '', fourth: '', fifth: '', sixth: '' });
@@ -15,6 +16,7 @@ export const CreatePin = () => {
   const handleChangeText = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+  const pinUser = useSelector((state) => state.user.pin);
 
   const pin = { pin: Object.values(form).join('') };
   const formPin = {
@@ -26,8 +28,20 @@ export const CreatePin = () => {
     dispatch(createPin(formPin));
     navigate('/dashboard');
   };
+
+  const onLogout = () => {
+    dispatch(logout());
+    navigate('/login');
+  };
+
+  React.useEffect(() => {
+    console.log(pinUser);
+    if (pinUser) {
+      navigate('/dashboard');
+    }
+  }, [pinUser]);
   return (
-    <section class="row">
+    <section className="row">
       <Intro />
 
       <div className="col-md-5 fw-form d-flex flex-column fw-create-pin">
@@ -55,8 +69,8 @@ export const CreatePin = () => {
           </div>
         </div>
 
-        <div class="d-grid fw-button create rounded">
-          <button onClick={onCreatePin} class="btn text-light fw-bold" type="button">
+        <div className="d-grid fw-button create rounded">
+          <button onClick={onCreatePin} className="btn text-light fw-bold" type="button">
             Confirm
           </button>
         </div>

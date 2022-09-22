@@ -2,8 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { login, register, createPin } from '../asyncActions/user';
 
 const initialState = {
-  token: localStorage.getItem('token') || null,
+  token: null,
   id: null,
+  pin: null,
   errorMsg: null,
   successMsg: null,
 };
