@@ -28,7 +28,7 @@ const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
           {/* <div><FiUser /></div> */}
           {/* </IconContext.Provider> */}
         </InputGroup.Text>
-        <Form.Control name="phone_number" type="text" aria-describedby="basic-addon1" value={values.phone_number} onChange={handleChange} placeholder="Enter your username" isInvalid={!!errors.phone_number} />
+        <Form.Control name="phone_number" type="text" aria-describedby="basic-addon1" value={values.phone_number} onChange={handleChange} placeholder="Enter your new phone number" isInvalid={!!errors.phone_number} />
         <Form.Control.Feedback type="invalid">{errors.phone_number}</Form.Control.Feedback>
       </InputGroup>
 
