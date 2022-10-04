@@ -23,20 +23,24 @@ const Card = () => {
 
   return (
     <>
-      {data.map((user) => (
-        <div key={user.id} className="d-flex flex-column mt-3">
-          <div className="d-flex align-items-start justify-content-between flex-column flex-xl-row">
-            <div className="d-flex align-items-start gap-2">
-              <img src={user.picture} alt="user" className="img-fluid" />
-              <div className="d-flex flex-column justify-content-between">
-                <h5 className="name-history">{user.name}</h5>
-                <p className="type-history">{user.type}</p>
+      {data ? (
+        data.map((user) => (
+          <div key={user.id} className="d-flex flex-column mt-3">
+            <div className="d-flex align-items-start justify-content-between flex-column flex-xl-row">
+              <div className="d-flex align-items-start gap-2">
+                <img src={user.picture ? `https://res.cloudinary.com/dwxrkcas3/image/upload/${user.picture}` : '/default-profile-pic.jpg'} alt="user" className="img-fluid profile-pic rounded" />
+                <div className="d-flex flex-column justify-content-between">
+                  <h5 className="name-history">{user.fullname}</h5>
+                  <p className="type-history">{user.type_id === 1 ? 'Transfer' : 'Top Up'}</p>
+                </div>
               </div>
+              <h3 className="amount-history">Rp.{user.amount}</h3>
             </div>
-            <h3 className="amount-history">{user.amount}</h3>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <div>data not found</div>
+      )}
     </>
   );
 };
@@ -104,10 +108,10 @@ export const Dashboard = () => {
                 <p className="text-light">{profile?.phone_number}</p>
               </div>
               <div className="d-flex flex-column">
-                <button type="button" className="btn btn-outline-secondary fw9-transaction">
+                <button type="button" onClick={() => navigate('/search-receiver')} className="btn btn-outline-secondary fw9-transaction">
                   <i data-feather="arrow-up" className="fw9-menu"></i> Transfer
                 </button>
-                <button type="button" className="btn btn-outline-secondary fw9-transaction">
+                <button type="button" onClick={() => navigate('/top-up')} className="btn btn-outline-secondary fw9-transaction">
                   <i data-feather="plus" className="fw9-menu"></i> Top Up
                 </button>
               </div>

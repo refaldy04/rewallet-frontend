@@ -40,7 +40,7 @@ const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
       )}
       {errorMsg && <Alert variant="danger">{errorMsg}</Alert>}
 
-      <InputGroup className="mb-3" controlId="formBasicEmail">
+      <InputGroup className="mb-3" controlid="formBasicEmail">
         {/* <Form.Label>Email address</Form.Label> */}
         <InputGroup.Text id="basic-addon1">
           <IconContext.Provider value={{ size: '1.5rem' }}>
@@ -54,7 +54,7 @@ const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
         {/* <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text> */}
       </InputGroup>
 
-      <InputGroup className="mb-3" controlId="formBasicPassword">
+      <InputGroup className="mb-3" controlid="formBasicPassword">
         {/* <Form.Label>Password</Form.Label> */}
         <InputGroup.Text id="basic-addon1">
           <IconContext.Provider value={{ size: '1.5rem' }}>
