@@ -25,7 +25,7 @@ export const Menu = () => {
         </Link>
         <Link to="/top-up" href="top-up-page.html" className="d-flex gap-4">
           <i data-feather="arrow-down" className="fw9-menu"></i>
-          <h3 className="fw9-menu">Top Up</h3>
+          <h3 className="fw9-menu-active fw-bold">Top Up</h3>
         </Link>
         <Link to="/profile" className="d-flex gap-4">
           <i data-feather="user" className="fw9-menu"></i>

@@ -30,7 +30,7 @@ const User = () => {
       className="d-flex align-items- justify-content-between flex-column flex-xl-row"
     >
       <div className="d-flex align-items-start gap-2 user text-dark">
-        <img src="/default-profile-pic.jpg" alt="Samuel" className="img-fluid profile-pic rounded" />
+        <img src={user.picture ? `https://res.cloudinary.com/dwxrkcas3/image/upload/${user.picture}` : '/default-profile-pic.jpg'} alt="user" className="img-fluid profile-pic rounded" />
         <div className="d-flex flex-column justify-content-between">
           <h5 className="name-history">{user.fullname}</h5>
           <p className="type-history">{user.phone_number}</p>
@@ -49,6 +49,7 @@ export const SearchReceiver = () => {
   const [keyword, setKeyword] = useState({ search: '' });
 
   const token = useSelector((state) => state.user.token);
+  const pageInfo = useSelector((state) => state.profile.usersPageInfo);
 
   const handleChangeText = (e) => {
     setKeyword({ ...keyword, [e.target.name]: e.target.value });
@@ -137,9 +138,9 @@ export const SearchReceiver = () => {
             <p>Search Receiver</p>
             <Form
               className="mb-5"
-              onSubmit={async (event) => {
+              onSubmit={(event) => {
                 event.preventDefault();
-                await dispatch(getAllProfile(data));
+                dispatch(getAllProfile(data));
               }}
             >
               <InputGroup>
@@ -156,6 +157,16 @@ export const SearchReceiver = () => {
 
             <div className="d-flex flex-column gap-5 mt-4 mt-xl-0">
               <User />
+            </div>
+
+            <div className="d-flex justify-content-center align-items-center gap-3">
+              <button disabled={pageInfo.prevPage === null} onClick={() => dispatch(getAllProfile({ token, page: pageInfo.prevPage }))}>
+                Prev
+              </button>
+              <div>1</div>
+              <button disabled={pageInfo.nextPage === null} onClick={() => dispatch(getAllProfile({ token, page: pageInfo.currentPage + 1 }))}>
+                Next
+              </button>
             </div>
           </div>
         </div>

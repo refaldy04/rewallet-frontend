@@ -13,16 +13,11 @@ const authConfig = {
   key: 'auth',
 };
 
-const profileConfig = {
-  storage,
-  key: 'profile',
-};
-
 const reducer = combineReducers({
   berhitung: counter,
   character,
   user: persistReducer(authConfig, auth),
-  profile: persistReducer(profileConfig, profile),
+  profile: profile,
   transfer,
 });
 // const reducer = combineReducers({

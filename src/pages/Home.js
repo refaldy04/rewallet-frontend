@@ -15,14 +15,7 @@ import dell from '../asset/img/Group99.png';
 import mobileDisplay from '../asset/img/Group 54.png';
 import beard from '../asset/img/beard.png';
 
-// import { useSelector } from 'react-redux';
-
 import { FiPhone, FiLock, FiDownload, FiArrowLeft, FiArrowRight } from 'react-icons/fi';
-
-// function Test() {
-//   const hahaha = useSelector((state) => state.berhitung.value);
-//   return <div>{hahaha}</div>;
-// }
 
 export class Home extends Component {
   render() {
@@ -48,7 +41,7 @@ export class Home extends Component {
               Awesome App For Saving <span className="tagline">Time.</span>
             </h1>
             <p>We bring you a mobile app for banking problems that oftenly wasting much of your times.</p>
-            <Link to="/" className="try-it">
+            <Link to="/login" className="try-it">
               Try It Free
             </Link>
             <span className="text">Available on</span>

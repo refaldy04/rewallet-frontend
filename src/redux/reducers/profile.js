@@ -1,10 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getProfile, getAllProfile, editProfile, editPicture } from '../asyncActions/profile';
+import { getProfile, getAllProfile, editProfile, editPicture, historyTransaction } from '../asyncActions/profile';
 import { transfer } from '../asyncActions/transfer';
 import { topup } from '../asyncActions/topup';
 const initialState = {
   data: {},
   users: [],
+  usersPageInfo: {},
+  historyTransaction: [],
+  historyPageInfo: {},
 };
 
 const profile = createSlice({
@@ -24,8 +27,10 @@ const profile = createSlice({
 
     build.addCase(getAllProfile.fulfilled, (state, action) => {
       const users = action.payload?.result;
+      const pageInfo = action.payload?.pageInfo;
       if (users) {
         state.users = users;
+        state.usersPageInfo = pageInfo;
       }
       console.log('ini users dari profile reducers', users);
     });
@@ -45,6 +50,11 @@ const profile = createSlice({
     build.addCase(editPicture.fulfilled, (state, action) => {
       console.log('ini dari reducers detelah edit data', action.payload.result);
       state.data = action.payload.result[0];
+    });
+    build.addCase(historyTransaction.fulfilled, (state, action) => {
+      console.log('ini dari reducers detelah get history data', action.payload);
+      state.historyTransaction = action.payload.result;
+      state.historyPageInfo = action.payload.pageInfo;
     });
   },
 });

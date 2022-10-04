@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Form from 'react-bootstrap/Form';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -17,11 +17,6 @@ const phoneSchema = Yup.object().shape({
 const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
   return (
     <Form className="mt-5 form-phone" noValidate onSubmit={handleSubmit}>
-      {/* {location.state?.errMsg && (
-          <div>
-            <Alert variant="danger">{location.state.errMsg}</Alert>
-          </div>
-        )} */}
       <InputGroup className="mb-3" controlId="formBasicUsername">
         <InputGroup.Text id="basic-addon1">
           {/* <IconContext.Provider value={{ size: '1.5rem' }}> */}

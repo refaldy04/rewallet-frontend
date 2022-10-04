@@ -1,84 +1,45 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../asset/css/home-page.css';
 import Navbar from '../component/Navbar';
 // import Menu from '../component/Menu';
 import Dropdown from '../component/Dropdown';
 import Footer from '../component/Footer';
-
 import graphic from '../asset/img/graphic.png';
 // import { Link } from 'react-router-dom';
-import samuel from '../asset/img/David.png';
-import netflix from '../asset/img/netflix.png';
-import christine from '../asset/img/2.png';
-import adobe from '../asset/img/adobe.png';
 import { Link } from 'react-router-dom';
 import { logout } from '../redux/reducers/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getProfile } from '../redux/asyncActions/profile';
+import { getProfile, historyTransaction } from '../redux/asyncActions/profile';
 
-class Card extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: {
-        success: true,
-        message: 'List users',
-        results: [
-          {
-            id: 1,
-            name: 'Samuel Suhi',
-            picture: samuel,
-            type: 'Transfer',
-            amount: 150000,
-          },
-          {
-            id: 2,
-            name: 'Netflix',
-            picture: netflix,
-            type: 'subscription',
-            amount: 200000,
-          },
-          {
-            id: 3,
-            name: 'Christine Mar...',
-            picture: christine,
-            type: 'Transfer',
-            amount: 50000,
-          },
-          {
-            id: 4,
-            name: 'Adobe Inc',
-            picture: adobe,
-            type: 'subscription',
-            amount: 140000,
-          },
-        ],
-      },
-    };
-  }
+const Card = () => {
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
+  const data = useSelector((state) => state.profile.historyTransaction);
 
-  render() {
-    return (
-      <>
-        {this.state.data.results.map((user) => (
-          <div key={user.id} className="d-flex flex-column mt-3">
-            <div className="d-flex align-items-start justify-content-between flex-column flex-xl-row">
-              <div className="d-flex align-items-start gap-2">
-                <img src={user.picture} alt="user" className="img-fluid" />
-                <div className="d-flex flex-column justify-content-between">
-                  <h5 className="name-history">{user.name}</h5>
-                  <p className="type-history">{user.type}</p>
-                </div>
+  React.useEffect(() => {
+    dispatch(historyTransaction({ token, limit: 4 }));
+  }, []);
+
+  return (
+    <>
+      {data.map((user) => (
+        <div key={user.id} className="d-flex flex-column mt-3">
+          <div className="d-flex align-items-start justify-content-between flex-column flex-xl-row">
+            <div className="d-flex align-items-start gap-2">
+              <img src={user.picture} alt="user" className="img-fluid" />
+              <div className="d-flex flex-column justify-content-between">
+                <h5 className="name-history">{user.name}</h5>
+                <p className="type-history">{user.type}</p>
               </div>
-              <h3 className="amount-history">{user.amount}</h3>
             </div>
+            <h3 className="amount-history">{user.amount}</h3>
           </div>
-        ))}
-      </>
-    );
-  }
-}
+        </div>
+      ))}
+    </>
+  );
+};
 
 export const Dashboard = () => {
   const dispatch = useDispatch();
@@ -174,9 +135,9 @@ export const Dashboard = () => {
               <div className="fw9-history d-flex flex-column col-lg-5 rounded">
                 <div className="d-flex flex-row justify-content-between">
                   <p className="transaction-history">Transaction History</p>
-                  <a href="history-page.html" className="see-all-transaction">
+                  {/* <a href="history-page.html" className="see-all-transaction">
                     See all
-                  </a>
+                  </a> */}
                 </div>
 
                 <Card />

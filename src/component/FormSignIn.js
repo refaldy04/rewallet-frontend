@@ -10,7 +10,7 @@ import Alert from 'react-bootstrap/Alert';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { IconContext } from 'react-icons';
 
-import { FiUser, FiDownload, FiMail } from 'react-icons/fi';
+import { FiUser, FiMail, FiLock } from 'react-icons/fi';
 
 const loginSchema = Yup.object().shape({
   username: Yup.string().required('Required').max(8, 'usename to long'),
@@ -62,7 +62,7 @@ const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
           <InputGroup.Text id="basic-addon3">
             <IconContext.Provider value={{ size: '1.5rem' }}>
               <div>
-                <FiDownload />
+                <FiLock />
               </div>
             </IconContext.Provider>
           </InputGroup.Text>
