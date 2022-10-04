@@ -13,7 +13,7 @@ import { IconContext } from 'react-icons';
 import { FiUser, FiMail, FiLock } from 'react-icons/fi';
 
 const loginSchema = Yup.object().shape({
-  username: Yup.string().required('Required').max(8, 'usename to long'),
+  username: Yup.string().required('Required').min(4, 'username to short').max(8, 'usename to long'),
   email: Yup.string().email('invalid email format').required('Required'),
   password: Yup.string().min(8, 'password to short').required('Required'),
 });
