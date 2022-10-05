@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { inputAmount } from '../redux/reducers/transfer';
+import { useSelector } from 'react-redux';
 // import { Link } from 'react-router-dom';
 
 const amountSchema = Yup.object().shape({
@@ -12,6 +13,7 @@ const amountSchema = Yup.object().shape({
 });
 
 const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
+  const profile = useSelector((state) => state.profile.data);
   return (
     <Form noValidate onSubmit={handleSubmit} className="d-flex flex-column align-items-center">
       <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -22,7 +24,7 @@ const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
         </Form.Control.Feedback>
         {/* <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text> */}
       </Form.Group>
-      <p>Rp120.000 Available</p>
+      <p>Rp{profile.balance} Available</p>
       <div className="col-auto my-5">
         <label className="visually-hidden" htmlFor="autoSizingInputGroup">
           Email
