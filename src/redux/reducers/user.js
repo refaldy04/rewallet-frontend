@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login, register, createPin } from '../asyncActions/user';
+import { login, register, createPin, changePassword } from '../asyncActions/user';
 
 const initialState = {
   token: null,
@@ -16,6 +16,10 @@ const auth = createSlice({
     logout: (state) => {
       // localStorage.removeItem('token');
       return initialState;
+    },
+    resetMsg: (state) => {
+      state.errorMsg = null;
+      state.successMsg = null;
     },
   },
   extraReducers: (build) => {
@@ -50,12 +54,21 @@ const auth = createSlice({
       state.successMsg = action.payload?.successMsg;
     });
     build.addCase(createPin.fulfilled, (state, action) => {
-      console.log('ini dari reducer auth', action.payload);
       state.pin = action.payload?.result;
+    });
+
+    build.addCase(changePassword.fulfilled, (state, action) => {
+      if (action.payload.success) {
+        state.successMsg = action.payload.message;
+        state.errorMsg = null;
+      } else {
+        state.errorMsg = action.payload;
+        state.successMsg = null;
+      }
     });
   },
 });
 
 export { login };
-export const { logout } = auth.actions;
+export const { logout, resetMsg } = auth.actions;
 export default auth.reducer;

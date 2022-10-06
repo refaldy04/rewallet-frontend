@@ -61,3 +61,13 @@ export const createPin = createAsyncThunk('auth/create-pin', async (request) => 
     return result;
   }
 });
+
+export const changePassword = createAsyncThunk('auth/changePassword', async (request) => {
+  try {
+    const send = qs.stringify(request.data);
+    const { data } = await http(request.token).patch('/changePassword', send);
+    return data;
+  } catch (e) {
+    return e.response.data.message;
+  }
+});
