@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../asset/css/landing-page-2.css';
 import { Link } from 'react-router-dom';
 import { IconContext } from 'react-icons';
-
+import Button from 'react-bootstrap/Button';
 import phone2 from '../asset/img/png-phone-2.png';
 import google from '../asset/img/Group.png';
 import apple from '../asset/img/icon.png';
@@ -29,7 +29,7 @@ export class Home extends Component {
             </Link>
             {/* <Test /> */}
             <Link to="/sign-up" className="signup">
-              Sign Up
+              Sign-Up
             </Link>
           </div>
         </nav>
@@ -41,9 +41,9 @@ export class Home extends Component {
               Awesome App For Saving <span className="tagline">Time.</span>
             </h1>
             <p>We bring you a mobile app for banking problems that oftenly wasting much of your times.</p>
-            <Link to="/login" className="try-it">
+            <Button to="/login" className="try-it">
               Try It Free
-            </Link>
+            </Button>
             <span className="text">Available on</span>
             <div>
               <img src={google} alt="google-store" className="google" />
@@ -142,9 +142,6 @@ export class Home extends Component {
           </h1>
           <p>We have some great features from the application and it's totally free to use by all users around the world.</p>
           <div>
-            <a href="facebook.com">
-              <FiArrowLeft />
-            </a>
             <div>
               <img src={beard} alt="user" />
               <h5>Alex Hansinburg</h5>
@@ -154,9 +151,6 @@ export class Home extends Component {
                 try this app and see the power!”
               </p>
             </div>
-            <a href="facebook.com">
-              <FiArrowRight />
-            </a>
           </div>
         </section>
 
