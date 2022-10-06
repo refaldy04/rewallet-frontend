@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Formik } from 'formik';
+import { Formik, replace } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -91,12 +91,11 @@ function FormInput() {
     const data = { email: value.email, password: value.password };
     console.log(data);
     dispatch(login(data));
-    //
   };
 
   React.useEffect(() => {
     if (token) {
-      navigate('/dashboard');
+      navigate('/dashboard', { replace: true });
     }
   }, [navigate, token]);
 
