@@ -167,6 +167,10 @@ a.pointer {
     padding: 30px;
   }
 
+  .fw9-main {
+    padding: 50px 0;
+  }
+
   .fw9-input-amount {
     padding: 50px 30px 61px;
   }

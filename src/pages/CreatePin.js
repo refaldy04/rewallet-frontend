@@ -4,7 +4,6 @@ import Intro from '../component/Intro';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPin } from '../redux/asyncActions/user';
 import { useNavigate } from 'react-router-dom';
-import { logout } from '../redux/reducers/user';
 
 export const CreatePin = () => {
   const [form, setForm] = useState({ first: '', sec: '', third: '', fourth: '', fifth: '', sixth: '' });
@@ -16,7 +15,6 @@ export const CreatePin = () => {
   const handleChangeText = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-  const pinUser = useSelector((state) => state.user.pin);
 
   const pin = { pin: Object.values(form).join('') };
   const formPin = {
@@ -25,21 +23,9 @@ export const CreatePin = () => {
   };
 
   const onCreatePin = () => {
-    dispatch(createPin(formPin));
-    navigate('/dashboard');
+    dispatch(createPin({ formPin, cb: () => navigate('/dashboard') }));
   };
 
-  const onLogout = () => {
-    dispatch(logout());
-    navigate('/login');
-  };
-
-  React.useEffect(() => {
-    console.log(pinUser);
-    if (pinUser) {
-      navigate('/dashboard');
-    }
-  }, [pinUser]);
   return (
     <section className="row">
       <Intro />
@@ -48,24 +34,33 @@ export const CreatePin = () => {
         <h3 className="fw-motto fw-margin">Start Accessing Banking Needs With All Devices and All Platforms With 30.000+ Users</h3>
         <p className="fw-accessibility mt-4">Transfering money is eassier than ever, you can access Zwallet wherever you are. Desktop, laptop, mobile phone? we cover all of that for you!</p>
 
+        {/* <div className="d-flex gap-2 input-pin">
+          <input type="text" className="form-control my-2" name="first" maxLength="1" onChange={handleChangeText} />
+          <input type="text" className="form-control my-2" name="sec" maxLength="1" onChange={handleChangeText} />
+          <input type="text" className="form-control my-2" name="third" maxLength="1" onChange={handleChangeText} />
+          <input type="text" className="form-control my-2" name="fourth" maxLength="1" onChange={handleChangeText} />
+          <input type="text" className="form-control my-2" name="fifth" maxLength="1" onChange={handleChangeText} />
+          <input type="text" className="form-control my-2" name="sixth" maxLength="1" onChange={handleChangeText} />
+        </div> */}
+
         <div className="d-flex justify-content-center fw9-input my-5">
           <div className="square">
-            <input type="text" className="rounded-3 text-center fs-1" name="first" onChange={handleChangeText} />
+            <input type="text" className="rounded-3 text-center fs-1" maxLength="1" name="first" onChange={handleChangeText} />
           </div>
           <div className="square">
-            <input type="text" className="rounded-3 text-center fs-1" name="sec" onChange={handleChangeText} />
+            <input type="text" className="rounded-3 text-center fs-1" maxLength="1" name="sec" onChange={handleChangeText} />
           </div>
           <div className="square">
-            <input type="text" className="rounded-3 text-center fs-1" name="third" onChange={handleChangeText} />
+            <input type="text" className="rounded-3 text-center fs-1" maxLength="1" name="third" onChange={handleChangeText} />
           </div>
           <div className="square">
-            <input type="text" className="rounded-3 text-center fs-1" name="fourth" onChange={handleChangeText} />
+            <input type="text" className="rounded-3 text-center fs-1" maxLength="1" name="fourth" onChange={handleChangeText} />
           </div>
           <div className="square">
-            <input type="text" className="rounded-3 text-center fs-1" name="fifth" onChange={handleChangeText} />
+            <input type="text" className="rounded-3 text-center fs-1" maxLength="1" name="fifth" onChange={handleChangeText} />
           </div>
           <div className="square">
-            <input type="text" className="rounded-3 text-center fs-1" name="sixth" onChange={handleChangeText} />
+            <input type="text" className="rounded-3 text-center fs-1" maxLength="1" name="sixth" onChange={handleChangeText} />
           </div>
         </div>
 

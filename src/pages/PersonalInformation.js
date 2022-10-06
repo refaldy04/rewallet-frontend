@@ -73,7 +73,7 @@ export const PersonalInformation = () => {
           <div className="col-lg-9 col-12 mt-5 mt-lg-0 d-flex flex-column gap-2 bg-light rounded-4 fw9-input-amount">
             <h4>Personal Information</h4>
             <p>We got your personal information from the sign up proccess. If you want to make changes on your information, contact our support.</p>
-            <div>
+            <div className="d-flex flex-column gap-3">
               <div className="flex flex-column bg-light container">
                 <h5 className="key">Username</h5>
                 <h2 className="value">{username}</h2>

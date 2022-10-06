@@ -50,6 +50,7 @@ export const editProfile = createAsyncThunk('editProfileById/patchData', async (
         'content-type': 'application/x-www-form-urlencoded',
       },
     });
+    request.cb && request.cb();
     console.log('ini data', data);
     return data;
   } catch (e) {

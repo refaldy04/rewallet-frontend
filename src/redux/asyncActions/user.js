@@ -46,13 +46,14 @@ export const createPin = createAsyncThunk('auth/create-pin', async (request) => 
   const result = {};
   try {
     console.log('ini dari create PIN', request);
-    const send = qs.stringify(request);
+    const send = qs.stringify(request.formPin);
     console.log('ini dari create PIN', send);
     const { data } = await http().post('/auth/createPin', send, {
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
       },
     });
+    request.cb();
     console.log('ini dari create PIN', data);
     return data;
   } catch (e) {

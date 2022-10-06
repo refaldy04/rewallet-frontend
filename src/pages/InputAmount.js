@@ -6,9 +6,8 @@ import FormInputMoney from '../component/FormInputMoney';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProfileById } from '../redux/asyncActions/profile';
 import { Link } from 'react-router-dom';
-import profile from '../asset/img/robert.png';
-import david from '../asset/img/David.png';
 import { logout } from '../redux/reducers/user';
+import Navbar from '../component/Navbar';
 
 export const InputAmount = () => {
   const recipient_id = useSelector((state) => state.transfer.dataTransfer);
@@ -24,21 +23,7 @@ export const InputAmount = () => {
   };
   return (
     <>
-      <nav className="fw9-navbar">
-        <div className="row d-flex justify-content-between container">
-          <h1 className="fw9-brand col-lg-6 mb-5 mb-lg-0">RE-WALLET</h1>
-          <div className="d-flex gap-3 align-items-start col-lg-6 justify-content-lg-end">
-            <img src={profile} className="img-fluid fw9-profile-pict" alt="profile" />
-            <div className="d-flex flex-column justify-content-end">
-              <h4 className="fw9-name-user d-flex">Robert Chandler</h4>
-              <p>+62 8139 3877 7946</p>
-            </div>
-            <div className="d-flex fw9-bell">
-              <i data-feather="bell"></i>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
       <main>
         <div className="dropdown d-lg-none d-block">
           <button className="fw9-btn-menu text-light btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

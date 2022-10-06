@@ -17,3 +17,30 @@
   background-color: #06283d;
   box-shadow: unset;
 }
+
+.input-money {
+  width: unset;
+  margin: auto;
+  padding: unset;
+}
+
+.form-control.is-invalid:focus {
+  box-shadow: unset;
+}
+
+.form-control.is-invalid {
+  padding-right: unset;
+  background-image: unset;
+}
+
+.feddback-money {
+  width: 50%;
+  margin: auto;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #f8f9fa inset !important;
+}

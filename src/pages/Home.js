@@ -15,7 +15,7 @@ import dell from '../asset/img/Group99.png';
 import mobileDisplay from '../asset/img/Group 54.png';
 import beard from '../asset/img/beard.png';
 
-import { FiPhone, FiLock, FiDownload, FiArrowLeft, FiArrowRight } from 'react-icons/fi';
+import { FiPhone, FiLock, FiDownload } from 'react-icons/fi';
 
 export class Home extends Component {
   render() {
