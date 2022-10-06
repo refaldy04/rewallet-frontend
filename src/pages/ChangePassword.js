@@ -66,7 +66,7 @@ export const ChangePassword = () => {
               </Link>
             </div>
             <div>
-              <Link to="/login" onClick={() => onLogout} className=" d-flex gap-4">
+              <Link to="/login" onClick={onLogout} className=" d-flex gap-4">
                 <i data-feather="log-out" className="fw9-menu"></i>
                 <h3 className="fw9-menu">Log Out</h3>
               </Link>
