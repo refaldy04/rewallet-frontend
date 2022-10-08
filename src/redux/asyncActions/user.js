@@ -72,3 +72,13 @@ export const changePassword = createAsyncThunk('auth/changePassword', async (req
     return e.response.data.message;
   }
 });
+
+export const checkEmail = createAsyncThunk('auth/ceckEmail', async (request) => {
+  try {
+    const send = qs.stringify(request);
+    const { data } = await http().post('/checkEmail', send);
+    return data.result;
+  } catch (e) {
+    return e.response.data.message;
+  }
+});

@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../asset/css/confirmation.css';
 import Example from '../component/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../redux/reducers/user';
-
-import david from '../asset/img/David.png';
 
 export const Confirmation = () => {
   const recipient = useSelector((state) => state.transfer.dataRecipient);

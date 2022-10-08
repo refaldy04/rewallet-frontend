@@ -1,19 +1,35 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import '../asset/css/reset-password-confirm-email.css';
 import Intro from '../component/Intro';
-import { Link } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import { FiMail } from 'react-icons/fi';
+import { Button, Form } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { checkEmail } from '../redux/asyncActions/user';
 
-export class ConfirmEmail extends Component {
-  render() {
-    return (
-      <section className="row d-flex">
-        <Intro />
+export const ConfirmEmail = () => {
+  const [email, setEmail] = useState('');
 
-        <div className="col-md-5 fw-form d-flex flex-column fw-confirmation gap-3">
-          <h3 className="fw-question fw-bold">Did You Forgot Your Password? Don't Worry, You Can Reset Your Password In a Minutes.</h3>
-          <p className="fw-guide">To reset your password, you must type your e-mail and we will send a link to your email and you will be directed to the reset password screens.</p>
+  const dispatch = useDispatch();
+
+  const handleChangeText = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const onConfirm = (event) => {
+    event.preventDefault();
+    console.log(email);
+    dispatch(checkEmail({ email, cb: () => {} }));
+  };
+  return (
+    <section className="row d-flex">
+      <Intro />
+
+      <div className="col-md-5 fw-form d-flex flex-column fw-confirmation gap-3">
+        <h3 className="fw-question fw-bold">Did You Forgot Your Password? Don't Worry, You Can Reset Your Password In a Minutes.</h3>
+        <p className="fw-guide">To reset your password, you must type your e-mail and we will send a link to your email and you will be directed to the reset password screens.</p>
+
+        <Form onSubmit={onConfirm}>
           <div>
             <label className="visually-hidden" htmlFor="autoSizingInputGroup">
               Email
@@ -26,19 +42,19 @@ export class ConfirmEmail extends Component {
                   </div>
                 </IconContext.Provider>
               </div>
-              <input type="email" className="form-control" placeholder="Enter your e-mail" />
+              <input type="email" name="email" className="form-control" placeholder="Enter your e-mail" onChange={handleChangeText} />
             </div>
           </div>
 
           <div className="d-grid fw-button reset rounded mb-5">
-            <Link to="/reset-password" className="btn text-light fw-bold" type="button">
+            <Button type="submit" className="btn text-light fw-bold">
               Confirm
-            </Link>
+            </Button>
           </div>
-        </div>
-      </section>
-    );
-  }
-}
+        </Form>
+      </div>
+    </section>
+  );
+};
 
 export default ConfirmEmail;
