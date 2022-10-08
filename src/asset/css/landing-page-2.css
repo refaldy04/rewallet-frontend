@@ -436,10 +436,14 @@ footer div div p:first-child {
 
   section.about div {
     display: flex;
+    gap: 20px;
     flex-direction: column;
-    margin-top: 50px;
     justify-content: space-between;
     align-items: center;
+  }
+
+  section.about div div.container.main {
+    order: 0;
   }
 
   section.features {
