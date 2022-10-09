@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login, register, createPin, changePassword, checkEmail } from '../asyncActions/user';
+import { login, register, createPin, changePassword, checkEmail, resetPassword } from '../asyncActions/user';
 
 const initialState = {
   token: null,
@@ -58,21 +58,34 @@ const auth = createSlice({
     });
 
     build.addCase(changePassword.fulfilled, (state, action) => {
+      console.log(action.payload);
       if (action.payload.success) {
         state.successMsg = action.payload.message;
         state.errorMsg = null;
+        state.id = action.payload.result.id;
       } else {
         state.errorMsg = action.payload;
         state.successMsg = null;
       }
     });
 
+    build.addCase(checkEmail.pending, (state, action) => {
+      state.errorMsg = null;
+      state.errorMsg = null;
+    });
+
     build.addCase(checkEmail.fulfilled, (state, action) => {
       if (action.payload.success) {
+        console.log(action.payload.result.id);
         state.errorMsg = null;
+        state.id = action.payload.result.id;
       } else {
         state.errorMsg = action.payload;
       }
+    });
+
+    build.addCase(resetPassword.fulfilled, (state, action) => {
+      state.successMsg = action.payload.message;
     });
   },
 });

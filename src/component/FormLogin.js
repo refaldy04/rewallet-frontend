@@ -18,6 +18,7 @@ const loginSchema = Yup.object().shape({
 
 const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
   const errorMsg = useSelector((state) => state.user.errorMsg);
+  const succesMsg = useSelector((state) => state.user.successMsg);
   // const dispatch = useDispatch();
   // const data = useSelector((state) => state.user.token);
   // React.useEffect(() => {
@@ -39,6 +40,7 @@ const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
         </div>
       )}
       {errorMsg && <Alert variant="danger">{errorMsg}</Alert>}
+      {succesMsg && <Alert variant="success">{succesMsg}</Alert>}
 
       <InputGroup className="mb-3" controlid="formBasicEmail">
         {/* <Form.Label>Email address</Form.Label> */}

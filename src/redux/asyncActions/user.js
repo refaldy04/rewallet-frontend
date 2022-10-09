@@ -83,3 +83,20 @@ export const checkEmail = createAsyncThunk('auth/ceckEmail', async (request) => 
     return e.response.data.message;
   }
 });
+
+export const resetPassword = createAsyncThunk('auth/resetPassword', async (request) => {
+  try {
+    const send = qs.stringify(request.data);
+    console.log(request.data);
+    const { data } = await http().patch(`/resetPassword/${request.id}`, send, {
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+      },
+    });
+    console.log(data);
+    request.cb();
+    return data;
+  } catch (e) {
+    return e.response.data.message;
+  }
+});

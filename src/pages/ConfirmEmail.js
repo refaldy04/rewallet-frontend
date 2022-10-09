@@ -58,7 +58,7 @@ export const ConfirmEmail = () => {
             </div>
           </div>
 
-          <div className="d-grid fw-button reset rounded mb-5">
+          <div className="d-grid fw-button reset rounded mb-5 mt-4">
             <Button type="submit" className="btn text-light fw-bold">
               Confirm
             </Button>
