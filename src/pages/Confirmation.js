@@ -4,6 +4,7 @@ import Example from '../component/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../redux/reducers/user';
+import Navbar from '../component/Navbar';
 
 export const Confirmation = () => {
   const recipient = useSelector((state) => state.transfer.dataRecipient);
@@ -30,21 +31,7 @@ export const Confirmation = () => {
   };
   return (
     <>
-      <nav className="fw9-navbar">
-        <div className="row d-flex justify-content-between container">
-          <h1 className="fw9-brand col-lg-6 mb-5 mb-lg-0">ZWALLET</h1>
-          <div className="d-flex gap-3 align-items-start col-lg-6 justify-content-lg-end">
-            <img src={profile} className="img-fluid fw9-profile-pict" alt="profile" />
-            <div className="d-flex flex-column justify-content-end">
-              <h4 className="fw9-name-user d-flex">Robert Chandler</h4>
-              <p>+62 8139 3877 7946</p>
-            </div>
-            <div className="d-flex fw9-bell">
-              <i data-feather="bell"></i>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       <main>
         <div className="dropdown d-lg-none d-block">
@@ -53,30 +40,30 @@ export const Confirmation = () => {
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li>
-              <a className="dropdown-item active" href="facebook.com" aria-current="true">
+              <Link className="dropdown-item" to="/dashboard" aria-current="true">
                 Dashboard
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="dropdown-item" href="facebook.com">
+              <Link className="dropdown-item" to="/search-receiver">
                 Transfer
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="dropdown-item" href="facebook.com">
+              <Link className="dropdown-item" to="/top-up">
                 Top Up
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="dropdown-item" href="facebook.com">
+              <Link className="dropdown-item" to="/profile">
                 Profile
-              </a>
+              </Link>
             </li>
             <hr />
             <li>
-              <a className="dropdown-item" href="facebook.com">
+              <button className="dropdown-item" onClick={onLogout}>
                 Log Out
-              </a>
+              </button>
             </li>
           </ul>
         </div>

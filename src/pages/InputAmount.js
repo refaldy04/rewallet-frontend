@@ -31,30 +31,30 @@ export const InputAmount = () => {
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li>
-              <a className="dropdown-item active" href="facebook.com" aria-current="true">
+              <Link className="dropdown-item" to="/dashboard" aria-current="true">
                 Dashboard
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="dropdown-item" href="facebook.com">
+              <Link className="dropdown-item" to="/search-receiver">
                 Transfer
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="dropdown-item" href="facebook.com">
+              <Link className="dropdown-item" to="/top-up">
                 Top Up
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="dropdown-item" href="facebook.com">
+              <Link className="dropdown-item" to="/profile">
                 Profile
-              </a>
+              </Link>
             </li>
             <hr />
             <li>
-              <a className="dropdown-item" href="facebook.com">
+              <button className="dropdown-item" onClick={onLogout}>
                 Log Out
-              </a>
+              </button>
             </li>
           </ul>
         </div>

@@ -54,24 +54,24 @@ function Example() {
           <Modal.Title>Input PIN</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="d-flex justify-content-center gap-3 fw9-input my-5">
+          <div className="d-flex justify-content-center fw9-input my-5">
             <div className="square">
-              <input type="text" className="rounded-3 text-center fs-1" name="first" onChange={handleChangeText} />
+              <input type="text" className="rounded-3 text-center fs-1" maxLength={1} name="first" onChange={handleChangeText} />
             </div>
             <div className="square">
-              <input type="text" className="rounded-3 text-center fs-1" name="sec" onChange={handleChangeText} />
+              <input type="text" className="rounded-3 text-center fs-1" maxLength={1} name="sec" onChange={handleChangeText} />
             </div>
             <div className="square">
-              <input type="text" className="rounded-3 text-center fs-1" name="third" onChange={handleChangeText} />
+              <input type="text" className="rounded-3 text-center fs-1" maxLength={1} name="third" onChange={handleChangeText} />
             </div>
             <div className="square">
-              <input type="text" className="rounded-3 text-center fs-1" name="fourth" onChange={handleChangeText} />
+              <input type="text" className="rounded-3 text-center fs-1" maxLength={1} name="fourth" onChange={handleChangeText} />
             </div>
             <div className="square">
-              <input type="text" className="rounded-3 text-center fs-1" name="fifth" onChange={handleChangeText} />
+              <input type="text" className="rounded-3 text-center fs-1" maxLength={1} name="fifth" onChange={handleChangeText} />
             </div>
             <div className="square">
-              <input type="text" className="rounded-3 text-center fs-1" name="sixth" onChange={handleChangeText} />
+              <input type="text" className="rounded-3 text-center fs-1" maxLength={1} name="sixth" onChange={handleChangeText} />
             </div>
           </div>
         </Modal.Body>
