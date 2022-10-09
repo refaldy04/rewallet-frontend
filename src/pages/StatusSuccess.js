@@ -1,14 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../asset/css/status-success.css';
 import { Link } from 'react-router-dom';
-
-import profile from '../asset/img/robert.png';
 import check from '../asset/img/check.png';
-
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../redux/reducers/user';
 import { IconContext } from 'react-icons';
 import { FiDownload, FiShare2 } from 'react-icons/fi';
 import Navbar from '../component/Navbar';
 export const StatusSuccess = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onLogout = () => {
+    dispatch(logout());
+    navigate('/login');
+  };
   return (
     <>
       <Navbar />
@@ -20,30 +27,30 @@ export const StatusSuccess = () => {
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li>
-              <a className="dropdown-item active" href="facebook.com" aria-current="true">
+              <Link className="dropdown-item" to="/dashboard" aria-current="true">
                 Dashboard
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="dropdown-item" href="facebook.com">
+              <Link className="dropdown-item" to="/search-receiver">
                 Transfer
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="dropdown-item" href="facebook.com">
+              <Link className="dropdown-item" to="/top-up">
                 Top Up
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="dropdown-item" href="facebook.com">
+              <Link className="dropdown-item" to="/profile">
                 Profile
-              </a>
+              </Link>
             </li>
             <hr />
             <li>
-              <a className="dropdown-item" href="facebook.com">
+              <button className="dropdown-item" onClick={onLogout}>
                 Log Out
-              </a>
+              </button>
             </li>
           </ul>
         </div>
@@ -51,28 +58,28 @@ export const StatusSuccess = () => {
         <div className="d-flex gap-3">
           <div className="col-lg-3 flex-column justify-content-between bg-light fw9-menu-list d-none d-lg-flex">
             <div className="d-flex flex-column gap-5">
-              <a href="home-page.html" className="d-flex gap-4 fw9-semibold">
-                <i data-feather="grid" className="fw9-menu"></i>
-                <h3 className="fw9-menu">Dashboard</h3>
-              </a>
-              <a href="search-receiver-page.html" className="d-flex gap-4">
-                <i data-feather="arrow-up" className="fw9-menu-active"></i>
-                <h3 className="fw9-menu-active">Transfer</h3>
-              </a>
-              <a href="top-up-page.html" className="d-flex gap-4">
+              <Link to="/dashboard" className="d-flex gap-4 fw9-semibold">
+                <i data-feather="grid" className="fw9-menu-active"></i>
+                <h3 className="fw9-menu-active fw-bold">Dashboard</h3>
+              </Link>
+              <Link to="/search-receiver" className="d-flex gap-4">
+                <i data-feather="arrow-up" className="fw9-menu"></i>
+                <h3 className="fw9-menu">Transfer</h3>
+              </Link>
+              <Link to="/top-up" href="top-up-page.html" className="d-flex gap-4">
                 <i data-feather="arrow-down" className="fw9-menu"></i>
                 <h3 className="fw9-menu">Top Up</h3>
-              </a>
-              <a href="profile-1-page.html" className="d-flex gap-4">
-                <i data-feather="user" className="fw9-menu"></i>
+              </Link>
+              <Link to="/profile" className="d-flex gap-4">
+                <i data-feather="user" className="fw9-menu-active"></i>
                 <h3 className="fw9-menu">Profile</h3>
-              </a>
+              </Link>
             </div>
             <div>
-              <div className="d-flex gap-4">
+              <Link to="/login" onClick={onLogout} className=" d-flex gap-4">
                 <i data-feather="log-out" className="fw9-menu"></i>
                 <h3 className="fw9-menu">Log Out</h3>
-              </div>
+              </Link>
             </div>
           </div>
 
