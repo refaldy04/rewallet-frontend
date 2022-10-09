@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login, register, createPin, changePassword } from '../asyncActions/user';
+import { login, register, createPin, changePassword, checkEmail } from '../asyncActions/user';
 
 const initialState = {
   token: null,
@@ -64,6 +64,14 @@ const auth = createSlice({
       } else {
         state.errorMsg = action.payload;
         state.successMsg = null;
+      }
+    });
+
+    build.addCase(checkEmail.fulfilled, (state, action) => {
+      if (action.payload.success) {
+        state.errorMsg = null;
+      } else {
+        state.errorMsg = action.payload;
       }
     });
   },

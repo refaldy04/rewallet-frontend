@@ -12,7 +12,7 @@ export class ResetPassword extends Component {
         <div className="col-md-5 fw-form d-flex flex-column fw-confirmation gap-3">
           <h3 className="fw-question fw-bold">Did You Forgot Your Password? Don't Worry, You Can Reset Your Password In a Minutes.</h3>
           <p className="fw-guide">To reset your password, you must type your e-mail and we will send a link to your email and you will be directed to the reset password screens.</p>
-          <div className="col-auto">
+          <div>
             <label className="visually-hidden" htmlFor="autoSizingInputGroup">
               Password
             </label>
@@ -23,7 +23,7 @@ export class ResetPassword extends Component {
               <input type="password" className="form-control" placeholder="Create new password" />
             </div>
           </div>
-          <div className="col-auto mt-5">
+          <div className="mt-3">
             <label className="visually-hidden" htmlFor="autoSizingInputGroup">
               Password
             </label>

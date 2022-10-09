@@ -77,7 +77,8 @@ export const checkEmail = createAsyncThunk('auth/ceckEmail', async (request) => 
   try {
     const send = qs.stringify(request);
     const { data } = await http().post('/checkEmail', send);
-    return data.result;
+    request.cb();
+    return data;
   } catch (e) {
     return e.response.data.message;
   }
