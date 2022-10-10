@@ -17,7 +17,7 @@ const PrivateRoute = ({ children }) => {
   if (token) {
     return children;
   }
-  return <Navigate to={'/login'} />;
+  return <Navigate to={'/login'} preventScrollReset={true} />;
 };
 
 export default PrivateRoute;
