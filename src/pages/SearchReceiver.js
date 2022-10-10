@@ -163,10 +163,21 @@ export const SearchReceiver = () => {
               <button disabled={pageInfo.prevPage === null} onClick={() => dispatch(getAllProfile({ token, page: pageInfo.prevPage }))}>
                 Prev
               </button>
-              <div>1</div>
+              <div>{pageInfo.currentPage}</div>
               <button disabled={pageInfo.nextPage === null} onClick={() => dispatch(getAllProfile({ token, page: pageInfo.currentPage + 1 }))}>
                 Next
               </button>
+              <select
+                aria-label="Default select example"
+                onChange={
+                  (e) => dispatch(getAllProfile({ token, sort: e.target.value }))
+                  // console.log(e.target.value)
+                }
+              >
+                <option>Sort By</option>
+                <option value={0}>ASC</option>
+                <option value={1}>DESC</option>
+              </select>
             </div>
           </div>
         </div>
