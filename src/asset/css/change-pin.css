@@ -134,6 +134,7 @@ footer p {
 
   .fw9-input-amount {
     padding: 50px 30px 61px;
+    overflow: hidden;
   }
 
   footer {
