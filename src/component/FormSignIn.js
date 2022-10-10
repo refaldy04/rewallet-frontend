@@ -19,15 +19,7 @@ const loginSchema = Yup.object().shape({
 });
 
 const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
-  const navigate = useNavigate();
-  const successMsg = useSelector((state) => state.user.successMsg);
   const errorMsg = useSelector((state) => state.user.errorMsg);
-
-  React.useEffect(() => {
-    if (successMsg) {
-      navigate('/login', { state: { successMsg } });
-    }
-  }, [navigate, successMsg]);
 
   return (
     <>
@@ -82,18 +74,19 @@ const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
 
 function FormInput() {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.token);
   const navigate = useNavigate();
 
   const onRegister = (value) => {
-    dispatch(register(value));
+    dispatch(
+      register({
+        value,
+        cb: () => {
+          navigate('/login', { replace: true });
+        },
+      })
+    );
   };
 
-  React.useEffect(() => {
-    if (token) {
-      navigate('/dashboard');
-    }
-  }, [navigate, token]);
   return (
     <Formik initialValues={{ username: '', email: '', password: '' }} onSubmit={onRegister} validationSchema={loginSchema}>
       {(props) => <AuthForm {...props} />}

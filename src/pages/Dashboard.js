@@ -54,7 +54,7 @@ export const Dashboard = () => {
 
   const onLogout = () => {
     dispatch(logout());
-    navigate('/login');
+    navigate('/login', { replace: true });
   };
 
   React.useEffect(() => {
@@ -62,7 +62,7 @@ export const Dashboard = () => {
       console.log('ini data user', profile);
       dispatch(getProfile(token));
     } else {
-      navigate('/create-pin');
+      navigate('/create-pin', { replace: true });
     }
   }, []);
 

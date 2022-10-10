@@ -23,7 +23,7 @@ export const CreatePin = () => {
   };
 
   const onCreatePin = () => {
-    dispatch(createPin({ formPin, cb: () => navigate('/dashboard') }));
+    dispatch(createPin({ formPin, cb: () => navigate('/dashboard', { replace: true }) }));
   };
 
   return (

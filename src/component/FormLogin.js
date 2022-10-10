@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Alert from 'react-bootstrap/Alert';
 import React from 'react';
@@ -19,26 +19,9 @@ const loginSchema = Yup.object().shape({
 const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
   const errorMsg = useSelector((state) => state.user.errorMsg);
   const succesMsg = useSelector((state) => state.user.successMsg);
-  // const dispatch = useDispatch();
-  // const data = useSelector((state) => state.user.token);
-  // React.useEffect(() => {
-  //   dispatch(getUser());
-  // }, []);
 
-  // React.useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
-  // const token = useSelector((state) => state.auth.token);
-  const location = useLocation();
   return (
     <Form noValidate onSubmit={handleSubmit}>
-      {location.state?.errMsg && (
-        <div>
-          <Alert className="text-center" variant="danger">
-            {location.state.errMsg}
-          </Alert>
-        </div>
-      )}
       {errorMsg && <Alert variant="danger">{errorMsg}</Alert>}
       {succesMsg && <Alert variant="success">{succesMsg}</Alert>}
 
@@ -86,20 +69,20 @@ const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
 
 function FormInput() {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.token);
   const navigate = useNavigate();
 
   const onLogin = (value) => {
     const data = { email: value.email, password: value.password };
     console.log(data);
-    dispatch(login(data));
+    dispatch(
+      login({
+        data,
+        cb: () => {
+          navigate('/dashboard', { replace: true });
+        },
+      })
+    );
   };
-
-  React.useEffect(() => {
-    if (token) {
-      navigate('/dashboard', { replace: true });
-    }
-  }, [navigate, token]);
 
   return (
     <Formik onSubmit={onLogin} initialValues={{ email: '', password: '' }} validationSchema={loginSchema}>

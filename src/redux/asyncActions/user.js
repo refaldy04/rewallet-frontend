@@ -5,7 +5,7 @@ import http from '../../helpers/http';
 export const login = createAsyncThunk('auth/login', async (request) => {
   const result = {};
   try {
-    const send = qs.stringify(request);
+    const send = qs.stringify(request.data);
     const { data } = await http().post('/auth/login', send, {
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
@@ -18,6 +18,7 @@ export const login = createAsyncThunk('auth/login', async (request) => {
     result.email = data.result.email;
     result.username = data.result.username;
     console.log('ini dari data login', result);
+    request.cb();
     return result;
   } catch (e) {
     result.errorMsg = e.response.data.message;
@@ -28,13 +29,14 @@ export const login = createAsyncThunk('auth/login', async (request) => {
 export const register = createAsyncThunk('auth/register', async (request) => {
   const result = {};
   try {
-    const send = qs.stringify(request);
+    const send = qs.stringify(request.value);
     const { data } = await http().post('/auth/register', send, {
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
       },
     });
     result.successMsg = data.message;
+    request.cb();
     return result;
   } catch (e) {
     result.errorMsg = e.response.data.message;
