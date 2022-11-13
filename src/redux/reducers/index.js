@@ -13,19 +13,19 @@ const authConfig = {
   key: 'auth',
 };
 
-// const reducer = combineReducers({
-//   berhitung: counter,
-//   character,
-//   user: persistReducer(authConfig, auth),
-//   profile: profile,
-//   transfer,
-// });
 const reducer = combineReducers({
   berhitung: counter,
   character,
-  user: auth,
-  profile,
+  user: persistReducer(authConfig, auth),
+  profile: profile,
   transfer,
 });
+// const reducer = combineReducers({
+//   berhitung: counter,
+//   character,
+//   user: auth,
+//   profile,
+//   transfer,
+// });
 
 export default reducer;
