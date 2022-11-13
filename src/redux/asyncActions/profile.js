@@ -5,8 +5,9 @@ import qs from 'qs';
 export const getProfile = createAsyncThunk('profile/getData', async (token) => {
   const result = {};
   try {
+    console.log('ananannanananananannanan');
     const { data } = await http(token).get('/profile');
-    console.log(data);
+    console.log('ini data profile user loginnnnnnnnnnnnnnnnn', data);
     return data;
   } catch (e) {
     result.message = e.response.data?.message;
@@ -84,8 +85,8 @@ export const editPicture = createAsyncThunk('editProfileById/patchPicture', asyn
 export const historyTransaction = createAsyncThunk('profile/getHistoryTransaction', async (request) => {
   const result = {};
   try {
-    console.log('ini dari profile', request);
-    const { data } = await http(request.token).get(`/historyTransaction?limit=${request.limit || 5}&page=${request.page || 1}`);
+    console.log('ini dari profilexxxxxxxxxxxxxxxxxxxxxxxxx', request);
+    const { data } = await http(request.token).get(`/historyTransaction?limit=${request.limit || 5}&page=${request.page || 1}`); //historyTransaction//
     console.log('ini data history', data);
     return data;
   } catch (e) {
