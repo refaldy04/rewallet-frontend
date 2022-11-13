@@ -7,7 +7,7 @@ const http = (token) => {
   }
   return axios.create({
     headers,
-    baseURL: 'http://localhost:3334',
+    baseURL: process.env.REACT_APP_BACKEND_URL,
   });
 };
 
