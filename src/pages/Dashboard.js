@@ -1,25 +1,32 @@
-import React from 'react';
-import '../asset/css/home-page.css';
-import Navbar from '../component/Navbar';
+import React from 'react'
+import '../asset/css/home-page.css'
+import Navbar from '../component/Navbar'
 // import Menu from '../component/Menu';
-import Dropdown from '../component/Dropdown';
-import Footer from '../component/Footer';
-import graphic from '../asset/img/graphic.png';
+import Dropdown from '../component/Dropdown'
+import Footer from '../component/Footer'
+import graphic from '../asset/img/graphic.png'
 // import { Link } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { logout } from '../redux/reducers/user';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { getProfile, historyTransaction } from '../redux/asyncActions/profile';
+import { Link } from 'react-router-dom'
+import { logout } from '../redux/reducers/user'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { getProfile, historyTransaction } from '../redux/asyncActions/profile'
+
+const rupiah = (number) => {
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+  }).format(number)
+}
 
 const Card = () => {
-  const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.token);
-  const data = useSelector((state) => state.profile.historyTransaction);
+  const dispatch = useDispatch()
+  const token = useSelector((state) => state.user.token)
+  const data = useSelector((state) => state.profile.historyTransaction)
 
   React.useEffect(() => {
-    dispatch(historyTransaction({ token, limit: 4 }));
-  }, []);
+    dispatch(historyTransaction({ token, limit: 4 }))
+  }, [])
 
   return (
     <>
@@ -34,7 +41,7 @@ const Card = () => {
                   <p className="type-history">{user.type_id === 1 ? 'Transfer' : 'Top Up'}</p>
                 </div>
               </div>
-              <h3 className="amount-history">Rp.{user.amount}</h3>
+              <h3 className="amount-history">{rupiah(user.amount)}</h3>
             </div>
           </div>
         ))
@@ -42,29 +49,29 @@ const Card = () => {
         <div>data not found</div>
       )}
     </>
-  );
-};
+  )
+}
 
 export const Dashboard = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const token = useSelector((state) => state.user.token);
-  const profile = useSelector((state) => state.profile.data);
-  const pin = useSelector((state) => state.user.pin);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const token = useSelector((state) => state.user.token)
+  const profile = useSelector((state) => state.profile.data)
+  const pin = useSelector((state) => state.user.pin)
 
   const onLogout = () => {
-    dispatch(logout());
-    navigate('/login', { replace: true });
-  };
+    dispatch(logout())
+    navigate('/login', { replace: true })
+  }
 
   React.useEffect(() => {
     if (pin) {
-      console.log('ini data user', profile);
-      dispatch(getProfile(token));
+      console.log('ini data user', profile)
+      dispatch(getProfile(token))
     } else {
-      navigate('/create-pin', { replace: true });
+      navigate('/create-pin', { replace: true })
     }
-  }, []);
+  }, [])
 
   return (
     <>
@@ -104,7 +111,7 @@ export const Dashboard = () => {
             <div className="d-flex justify-content-between fw9-balance flex-column flex-lg-row">
               <div>
                 <h5 className="text-light">Balance</h5>
-                <h1 className="text-light">Rp {profile?.balance}</h1>
+                <h1 className="text-light">{rupiah(profile?.balance)}</h1>
                 <p className="text-light">{profile?.phone_number}</p>
               </div>
               <div className="d-flex flex-column">
@@ -152,7 +159,7 @@ export const Dashboard = () => {
       </main>
       <Footer />
     </>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard
