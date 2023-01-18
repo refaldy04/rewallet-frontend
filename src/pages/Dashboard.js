@@ -1,13 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import '../asset/css/home-page.css'
 import Navbar from '../component/Navbar'
-// import Menu from '../component/Menu';
 import Dropdown from '../component/Dropdown'
 import Footer from '../component/Footer'
 import graphic from '../asset/img/graphic.png'
-// import { Link } from 'react-router-dom';
-import { Link } from 'react-router-dom'
-import { logout } from '../redux/reducers/user'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getProfile, historyTransaction } from '../redux/asyncActions/profile'
@@ -59,12 +55,6 @@ export const Dashboard = () => {
   const token = useSelector((state) => state.user.token)
   const profile = useSelector((state) => state.profile.data)
   const pin = useSelector((state) => state.user.pin)
-  const [active, setActive] = useState('dashboard')
-
-  const onLogout = () => {
-    dispatch(logout())
-    navigate('/login', { replace: true })
-  }
 
   React.useEffect(() => {
     if (pin) {
@@ -74,10 +64,6 @@ export const Dashboard = () => {
       navigate('/create-pin', { replace: true })
     }
   }, [])
-
-  function handleClick(e) {
-    setActive(e.target.id)
-  }
 
   return (
     <>
