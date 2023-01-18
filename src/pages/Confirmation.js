@@ -1,34 +1,35 @@
-import React from 'react';
-import '../asset/css/confirmation.css';
-import Example from '../component/Modal';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { logout } from '../redux/reducers/user';
-import Navbar from '../component/Navbar';
+import React from 'react'
+import '../asset/css/confirmation.css'
+import Example from '../component/Modal'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { logout } from '../redux/reducers/user'
+import Navbar from '../component/Navbar'
+import Sidebar from '../component/Sidebar'
 
 export const Confirmation = () => {
-  const recipient = useSelector((state) => state.transfer.dataRecipient);
-  const dataTransfer = useSelector((state) => state.transfer.dataTransfer);
-  const profile = useSelector((state) => state.profile.data);
-  const dispatch = useDispatch();
+  const recipient = useSelector((state) => state.transfer.dataRecipient)
+  const dataTransfer = useSelector((state) => state.transfer.dataTransfer)
+  const profile = useSelector((state) => state.profile.data)
+  const dispatch = useDispatch()
 
-  var today = new Date();
-  var dd = String(today.getDate()).padStart(2, '0');
-  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-  var yyyy = today.getFullYear();
-  today = mm + '/' + dd + '/' + yyyy;
+  var today = new Date()
+  var dd = String(today.getDate()).padStart(2, '0')
+  var mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
+  var yyyy = today.getFullYear()
+  today = mm + '/' + dd + '/' + yyyy
 
-  var d = new Date();
+  var d = new Date()
 
-  const time = d.getHours() + '.' + d.getMinutes();
+  const time = d.getHours() + '.' + d.getMinutes()
 
   React.useEffect(() => {
-    console.log('ini data profile', dataTransfer.time);
-  }, []);
+    console.log('ini data profile', dataTransfer.time)
+  }, [])
 
   const onLogout = () => {
-    dispatch(logout());
-  };
+    dispatch(logout())
+  }
   return (
     <>
       <Navbar />
@@ -69,32 +70,7 @@ export const Confirmation = () => {
         </div>
 
         <div className="d-flex gap-3">
-          <div className="col-lg-3 flex-column justify-content-between bg-light fw9-menu-list d-none d-lg-flex">
-            <div className="d-flex flex-column gap-5">
-              <Link to="/dashboard" className="d-flex gap-4 fw9-semibold">
-                <i data-feather="grid" className="fw9-menu"></i>
-                <h3 className="fw9-menu">Dashboard</h3>
-              </Link>
-              <Link to="/search-receiver" className="d-flex gap-4">
-                <i data-feather="arrow-up" className="fw9-menu-active fw-bold"></i>
-                <h3 className="fw9-menu-active fw-bold">Transfer</h3>
-              </Link>
-              <Link to="/top-up" href="top-up-page.html" className="d-flex gap-4">
-                <i data-feather="arrow-down" className="fw9-menu"></i>
-                <h3 className="fw9-menu">Top Up</h3>
-              </Link>
-              <Link to="/profile" className="d-flex gap-4">
-                <i data-feather="user" className="fw9-menu-active"></i>
-                <h3 className="fw9-menu">Profile</h3>
-              </Link>
-            </div>
-            <div>
-              <Link to="/login" onClick={onLogout} className=" d-flex gap-4">
-                <i data-feather="log-out" className="fw9-menu"></i>
-                <h3 className="fw9-menu">Log Out</h3>
-              </Link>
-            </div>
-          </div>
+          <Sidebar />
 
           <div className="col-lg-9 col-12 mt-5 mt-lg-0 d-flex flex-column gap-4 bg-light rounded-4 fw9-input-amount">
             <p className="transfer-header">Transfer To</p>
@@ -195,7 +171,7 @@ export const Confirmation = () => {
         </div>
       </footer>
     </>
-  );
-};
+  )
+}
 
-export default Confirmation;
+export default Confirmation

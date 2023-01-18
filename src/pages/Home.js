@@ -33,7 +33,7 @@ export const Home = () => {
       <nav>
         <h1>Re-wallet</h1>
         <div>
-          <Link to="/login" className="login">
+          <Link to="/login" className="login ">
             Login
           </Link>
           {/* <Test /> */}

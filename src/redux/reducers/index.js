@@ -7,6 +7,7 @@ import counter from './counter'
 import auth from './user'
 import profile from './profile'
 import transfer from './transfer'
+import sidebar from './sidebar'
 
 const authConfig = {
   storage,
@@ -19,6 +20,7 @@ const reducer = combineReducers({
   user: persistReducer(authConfig, auth),
   profile: profile,
   transfer,
+  sidebar,
 })
 // const reducer = combineReducers({
 //   berhitung: counter,

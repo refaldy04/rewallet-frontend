@@ -64,10 +64,17 @@ main {
   border-color: #ffffff;
 }
 
-.fw9-menu-active {
+.fw9-menu {
+  font-weight: 400;
+  font-size: 18px;
+  /* color: #06283d !important; */
+}
+
+.active {
   font-weight: 400;
   font-size: 18px;
   color: #06283d !important;
+  cursor: pointer;
 }
 
 .fw9-balance {

@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import '../asset/css/status-success.css';
-import { Link } from 'react-router-dom';
-import profile from '../asset/img/robert.png';
-import check from '../asset/img/x.png';
+import React, { Component } from 'react'
+import '../asset/css/status-success.css'
+import { Link } from 'react-router-dom'
+import profile from '../asset/img/robert.png'
+import check from '../asset/img/x.png'
+import Sidebar from '../component/Sidebar'
 
 export class StatusFailed extends Component {
   render() {
@@ -60,32 +61,7 @@ export class StatusFailed extends Component {
           </div>
 
           <div className="d-flex gap-3">
-            <div className="col-lg-3 flex-column justify-content-between bg-light fw9-menu-list d-none d-lg-flex">
-              <div className="d-flex flex-column gap-5">
-                <a href="home-page.html" className="d-flex gap-4 fw9-semibold">
-                  <i data-feather="grid" className="fw9-menu"></i>
-                  <h3 className="fw9-menu">Dashboard</h3>
-                </a>
-                <a href="search-receiver-page.html" className="d-flex gap-4">
-                  <i data-feather="arrow-up" className="fw9-menu-active"></i>
-                  <h3 className="fw9-menu-active">Transfer</h3>
-                </a>
-                <a href="top-up-page.html" className="d-flex gap-4">
-                  <i data-feather="arrow-down" className="fw9-menu"></i>
-                  <h3 className="fw9-menu">Top Up</h3>
-                </a>
-                <a href="profile-1-page.html" className="d-flex gap-4">
-                  <i data-feather="user" className="fw9-menu"></i>
-                  <h3 className="fw9-menu">Profile</h3>
-                </a>
-              </div>
-              <div>
-                <div className="d-flex gap-4">
-                  <i data-feather="log-out" className="fw9-menu"></i>
-                  <h3 className="fw9-menu">Log Out</h3>
-                </div>
-              </div>
-            </div>
+            <Sidebar />
 
             <div className="col-lg-9 col-12 mt-5 mt-lg-0 d-flex flex-column gap-4 bg-light rounded-4 fw9-input-amount">
               <div className="rounded-circle d-flex justify-content-center align-items-center fw9-status mx-auto">
@@ -147,8 +123,8 @@ export class StatusFailed extends Component {
           </div>
         </footer>
       </>
-    );
+    )
   }
 }
 
-export default StatusFailed;
+export default StatusFailed

@@ -1,37 +1,34 @@
-import React, { useState } from 'react';
-import '../asset/css/top-up.css';
-import Navbar from '../component/Navbar';
-import Footer from '../component/Footer';
-import Menu from '../component/Menu';
-import Dropdown from '../component/Dropdown';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { topup } from '../redux/asyncActions/topup';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react'
+import '../asset/css/top-up.css'
+import Navbar from '../component/Navbar'
+import Footer from '../component/Footer'
+import Dropdown from '../component/Dropdown'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
+import { topup } from '../redux/asyncActions/topup'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import Sidebar from '../component/Sidebar'
 
 function MyVerticallyCenteredModal(props) {
-  const [form, setForm] = useState({ amount: '' });
+  const [form, setForm] = useState({ amount: '' })
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleChangeText = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
 
-  const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.token);
+  const dispatch = useDispatch()
+  const token = useSelector((state) => state.user.token)
 
   const onTopup = (event) => {
-    event.preventDefault();
-    dispatch(topup({ form, token }));
-    navigate('/dashboard');
-  };
+    event.preventDefault()
+    dispatch(topup({ form, token }))
+    navigate('/dashboard')
+  }
 
-  const handleSubmit = async () => {
-    console.log(form);
-  };
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
@@ -52,11 +49,11 @@ function MyVerticallyCenteredModal(props) {
         </Modal.Footer>
       </Form>
     </Modal>
-  );
+  )
 }
 
 export const TopUp = () => {
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow, setModalShow] = React.useState(false)
 
   return (
     <>
@@ -66,7 +63,7 @@ export const TopUp = () => {
         <Dropdown />
 
         <div className="d-flex gap-3">
-          <Menu />
+          <Sidebar />
 
           <div className="col-lg-9 col-12 mt-5 mt-lg-0 d-flex flex-column gap-4 bg-light rounded-4 fw9-input-amount">
             <p className="transfer-header">You Can Topup Here</p>
@@ -138,7 +135,7 @@ export const TopUp = () => {
 
       <Footer />
     </>
-  );
-};
+  )
+}
 
-export default TopUp;
+export default TopUp

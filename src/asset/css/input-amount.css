@@ -50,12 +50,6 @@ main {
   color: rgba(58, 61, 66, 0.8);
 }
 
-.fw9-menu-active {
-  font-weight: 400;
-  font-size: 18px;
-  color: #6379f4;
-}
-
 .fw9-input-amount {
   padding: 30px;
 }

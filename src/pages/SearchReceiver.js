@@ -1,30 +1,31 @@
-import React, { useState } from 'react';
-import '../asset/css/search-receiver.css';
-import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { logout } from '../redux/reducers/user';
-import { getAllProfile } from '../redux/asyncActions/profile';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectUser } from '../redux/reducers/transfer';
-import Navbar from '../component/Navbar';
-import { IconContext } from 'react-icons';
-import InputGroup from 'react-bootstrap/InputGroup';
-import { FiSearch } from 'react-icons/fi';
+import React, { useState } from 'react'
+import '../asset/css/search-receiver.css'
+import Form from 'react-bootstrap/Form'
+import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { logout } from '../redux/reducers/user'
+import { getAllProfile } from '../redux/asyncActions/profile'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectUser } from '../redux/reducers/transfer'
+import Navbar from '../component/Navbar'
+import { IconContext } from 'react-icons'
+import InputGroup from 'react-bootstrap/InputGroup'
+import { FiSearch } from 'react-icons/fi'
+import Sidebar from '../component/Sidebar'
 
 const User = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.token);
-  const profileData = useSelector((state) => state.profile.users);
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const token = useSelector((state) => state.user.token)
+  const profileData = useSelector((state) => state.profile.users)
   const data = {
     token,
-  };
+  }
   const hallo = profileData?.map((user) => (
     <div
       onClick={() => {
-        dispatch(selectUser({ id: user.id, picture: user.picture }));
-        navigate('/input-amount');
+        dispatch(selectUser({ id: user.id, picture: user.picture }))
+        navigate('/input-amount')
       }}
       key={user.id}
       className="d-flex align-items- justify-content-between flex-column flex-xl-row"
@@ -37,36 +38,36 @@ const User = () => {
         </div>
       </div>
     </div>
-  ));
+  ))
 
   React.useEffect(() => {
-    dispatch(getAllProfile(data));
-  }, []);
-  return <>{hallo}</>;
-};
+    dispatch(getAllProfile(data))
+  }, [])
+  return <>{hallo}</>
+}
 
 export const SearchReceiver = () => {
-  const [keyword, setKeyword] = useState({ search: '' });
+  const [keyword, setKeyword] = useState({ search: '' })
 
-  const token = useSelector((state) => state.user.token);
-  const pageInfo = useSelector((state) => state.profile.usersPageInfo);
+  const token = useSelector((state) => state.user.token)
+  const pageInfo = useSelector((state) => state.profile.usersPageInfo)
 
   const handleChangeText = (e) => {
-    setKeyword({ ...keyword, [e.target.name]: e.target.value });
-  };
+    setKeyword({ ...keyword, [e.target.name]: e.target.value })
+  }
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const data = {
     search: keyword.search,
     token,
-  };
+  }
 
   const onLogout = () => {
-    dispatch(logout());
-    navigate('/login');
-  };
+    dispatch(logout())
+    navigate('/login')
+  }
 
   return (
     <>
@@ -107,40 +108,15 @@ export const SearchReceiver = () => {
         </div>
 
         <div className="d-flex gap-3">
-          <div className="col-lg-3 flex-column justify-content-between bg-light fw9-menu-list d-none d-lg-flex">
-            <div className="d-flex flex-column gap-5">
-              <Link to="/dashboard" className="d-flex gap-4 fw9-semibold">
-                <i data-feather="grid" className="fw9-menu"></i>
-                <h3 className="fw9-menu">Dashboard</h3>
-              </Link>
-              <Link to="/search-receiver" className="d-flex gap-4">
-                <i data-feather="arrow-up" className="fw9-menu-active fw-bold"></i>
-                <h3 className="fw9-menu-active fw-bold">Transfer</h3>
-              </Link>
-              <Link to="/top-up" href="top-up-page.html" className="d-flex gap-4">
-                <i data-feather="arrow-down" className="fw9-menu"></i>
-                <h3 className="fw9-menu">Top Up</h3>
-              </Link>
-              <Link to="/profile" className="d-flex gap-4">
-                <i data-feather="user" className="fw9-menu-active"></i>
-                <h3 className="fw9-menu">Profile</h3>
-              </Link>
-            </div>
-            <div>
-              <Link to="/login" onClick={onLogout} className=" d-flex gap-4">
-                <i data-feather="log-out" className="fw9-menu"></i>
-                <h3 className="fw9-menu">Log Out</h3>
-              </Link>
-            </div>
-          </div>
+          <Sidebar />
 
           <div className="col-lg-9 col-12 mt-5 mt-lg-0 d-flex flex-column gap-4 bg-light rounded-4 fw9-search-receiver">
             <p>Search Receiver</p>
             <Form
               className="mb-5"
               onSubmit={(event) => {
-                event.preventDefault();
-                dispatch(getAllProfile(data));
+                event.preventDefault()
+                dispatch(getAllProfile(data))
               }}
             >
               <InputGroup>
@@ -190,7 +166,7 @@ export const SearchReceiver = () => {
         </div>
       </footer>
     </>
-  );
-};
+  )
+}
 
-export default SearchReceiver;
+export default SearchReceiver
