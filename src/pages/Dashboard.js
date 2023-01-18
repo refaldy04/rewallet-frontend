@@ -38,7 +38,7 @@ const Card = () => {
                   <p className="type-history">{user.type_id === 1 ? 'Transfer' : 'Top Up'}</p>
                 </div>
               </div>
-              <h3 className="amount-history">{rupiah(user.amount)}</h3>
+              <h3 className={user.type_id === 1 ? 'amount-history fw-bold minus' : 'amount-history fw-bold plus'}>{rupiah(user.amount)}</h3>
             </div>
           </div>
         ))
