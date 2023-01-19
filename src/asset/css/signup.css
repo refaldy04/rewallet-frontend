@@ -36,12 +36,12 @@ section {
   color: #a9a9a999;
 }
 
-input:-webkit-autofill,
+/* input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px #f8f9fa inset !important;
-}
+} */
 
 .form-control {
   border: unset;
