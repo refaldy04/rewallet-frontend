@@ -10,6 +10,7 @@ import { topup } from '../redux/asyncActions/topup'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Sidebar from '../component/Sidebar'
+import { historyTransaction } from '../redux/asyncActions/profile'
 
 function MyVerticallyCenteredModal(props) {
   const [form, setForm] = useState({ amount: '' })
@@ -25,7 +26,7 @@ function MyVerticallyCenteredModal(props) {
 
   const onTopup = (event) => {
     event.preventDefault()
-    dispatch(topup({ form, token }))
+    dispatch(topup({ form, token, cb: () => dispatch(historyTransaction({ token, limit: 4 })) }))
     navigate('/dashboard')
   }
 
