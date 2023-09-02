@@ -16,7 +16,6 @@ const profile = createSlice({
   reducers: {},
   extraReducers: (build) => {
     build.addCase(getProfile.fulfilled, (state, action) => {
-      console.log(action.payload.result);
       state.data = action.payload.result;
     });
 
@@ -32,27 +31,21 @@ const profile = createSlice({
         state.users = users;
         state.usersPageInfo = pageInfo;
       }
-      console.log('ini users dari profile reducers', users);
     });
 
     build.addCase(transfer.fulfilled, (state, action) => {
-      console.log('ini dari reducers', action.payload[0].balance);
       state.data.balance = action.payload[0].balance;
     });
     build.addCase(topup.fulfilled, (state, action) => {
-      console.log('ini dari reducers', action.payload.balance);
       state.data.balance = action.payload.balance;
     });
     build.addCase(editProfile.fulfilled, (state, action) => {
-      console.log('ini dari reducers detelah edit data', action.payload.result);
       state.data = action.payload.result[0];
     });
     build.addCase(editPicture.fulfilled, (state, action) => {
-      console.log('ini dari reducers detelah edit data', action.payload.result);
       state.data = action.payload.result[0];
     });
     build.addCase(historyTransaction.fulfilled, (state, action) => {
-      console.log('ini dari reducers detelah get history data', action.payload);
       state.historyTransaction = action.payload.result;
       state.historyPageInfo = action.payload.pageInfo;
     });

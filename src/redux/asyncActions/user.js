@@ -11,13 +11,11 @@ export const login = createAsyncThunk('auth/login', async (request) => {
         'content-type': 'application/x-www-form-urlencoded',
       },
     });
-    console.log('ini data dari backend waktu login', data);
 
     result.token = data.result.token;
     result.pin = data.result.pin;
     result.email = data.result.email;
     result.username = data.result.username;
-    console.log('ini dari data login', result);
     request.cb();
     return result;
   } catch (e) {
@@ -47,19 +45,15 @@ export const register = createAsyncThunk('auth/register', async (request) => {
 export const createPin = createAsyncThunk('auth/create-pin', async (request) => {
   const result = {};
   try {
-    console.log('ini dari create PIN', request);
     const send = qs.stringify(request.formPin);
-    console.log('ini dari create PIN', send);
     const { data } = await http().post('/auth/createPin', send, {
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
       },
     });
     request.cb();
-    console.log('ini dari create PIN', data);
     return data;
   } catch (e) {
-    console.log('create pin gagal');
     result.errorMsg = e.response.data.message;
     return result;
   }
@@ -89,13 +83,11 @@ export const checkEmail = createAsyncThunk('auth/ceckEmail', async (request) => 
 export const resetPassword = createAsyncThunk('auth/resetPassword', async (request) => {
   try {
     const send = qs.stringify(request.data);
-    console.log(request.data);
     const { data } = await http().patch(`/resetPassword/${request.id}`, send, {
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
       },
     });
-    console.log(data);
     request.cb();
     return data;
   } catch (e) {

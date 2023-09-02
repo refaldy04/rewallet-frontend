@@ -14,7 +14,6 @@ const auth = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      // localStorage.removeItem('token');
       return initialState;
     },
     resetMsg: (state) => {
@@ -28,7 +27,6 @@ const auth = createSlice({
       state.successMsg = null;
     });
     build.addCase(login.fulfilled, (state, action) => {
-      console.log('ini dari redicers user', action.payload);
       const token = action.payload?.token;
       const pin = action.payload?.pin;
       const email = action.payload?.email;
@@ -38,7 +36,6 @@ const auth = createSlice({
         state.pin = pin;
         state.email = email;
         state.username = username;
-        // localStorage.setItem('token', token);
       } else {
         state.errorMsg = action.payload?.errorMsg;
         state.successMsg = action.payload?.successMsg;
@@ -58,7 +55,6 @@ const auth = createSlice({
     });
 
     build.addCase(changePassword.fulfilled, (state, action) => {
-      console.log(action.payload);
       if (action.payload.success) {
         state.successMsg = action.payload.message;
         state.errorMsg = null;
@@ -76,7 +72,6 @@ const auth = createSlice({
 
     build.addCase(checkEmail.fulfilled, (state, action) => {
       if (action.payload.success) {
-        console.log(action.payload.result.id);
         state.errorMsg = null;
         state.id = action.payload.result.id;
       } else {

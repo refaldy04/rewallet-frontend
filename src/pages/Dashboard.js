@@ -113,9 +113,7 @@ export const Dashboard = () => {
               <div className="fw9-history d-flex flex-column col-lg-5 rounded">
                 <div className="d-flex flex-row justify-content-between">
                   <p className="transaction-history">Transaction History</p>
-                  {/* <a href="history-page.html" className="see-all-transaction">
-                    See all
-                  </a> */}
+                  
                 </div>
 
                 <Card />

@@ -22,12 +22,6 @@ const reducer = combineReducers({
   transfer,
   sidebar,
 })
-// const reducer = combineReducers({
-//   berhitung: counter,
-//   character,
-//   user: auth,
-//   profile,
-//   transfer,
-// });
+
 
 export default reducer

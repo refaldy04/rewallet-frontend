@@ -11,14 +11,11 @@ const character = createSlice({
   reducers: {},
   extraReducers: (build) => {
     build.addCase(getAll.fulfilled, (state, action) => {
-      state.results = action.payload; //action.payload itu hasil dari getAll
+      state.results = action.payload; 
     });
-    // build.addCase(getNextData.fulfilled, (state, action) => {
-    //   state.results = action.payload;
-    // });
   },
 });
 
-// export {} = character.actions
-export { getAll /*getNextData*/ };
+
+export { getAll };
 export default character.reducer;
