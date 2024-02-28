@@ -1,47 +1,53 @@
-import React from 'react'
-import '../asset/css/confirmation.css'
-import Example from '../component/Modal'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { logout } from '../redux/reducers/user'
-import Navbar from '../component/Navbar'
-import Sidebar from '../component/Sidebar'
+import React from "react";
+import "../asset/css/confirmation.css";
+import Example from "../component/Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../redux/reducers/user";
+import Navbar from "../component/Navbar";
+import Sidebar from "../component/Sidebar";
 
 export const Confirmation = () => {
-  const recipient = useSelector((state) => state.transfer.dataRecipient)
-  const dataTransfer = useSelector((state) => state.transfer.dataTransfer)
-  const profile = useSelector((state) => state.profile.data)
-  const dispatch = useDispatch()
+  const recipient = useSelector((state) => state.transfer.dataRecipient);
+  const dataTransfer = useSelector((state) => state.transfer.dataTransfer);
+  const profile = useSelector((state) => state.profile.data);
+  const dispatch = useDispatch();
 
-  var today = new Date()
-  var dd = String(today.getDate()).padStart(2, '0')
-  var mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
-  var yyyy = today.getFullYear()
-  today = mm + '/' + dd + '/' + yyyy
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, "0");
+  var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  var yyyy = today.getFullYear();
+  today = mm + "/" + dd + "/" + yyyy;
 
-  var d = new Date()
+  var d = new Date();
 
-  const time = d.getHours() + '.' + d.getMinutes()
-
-  React.useEffect(() => {
-    console.log('ini data profile', dataTransfer.time)
-  }, [])
+  const time = d.getHours() + "." + d.getMinutes();
 
   const onLogout = () => {
-    dispatch(logout())
-  }
+    dispatch(logout());
+  };
   return (
     <>
       <Navbar />
 
       <main>
         <div className="dropdown d-lg-none d-block">
-          <button className="fw9-btn-menu text-light btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <button
+            className="fw9-btn-menu text-light btn dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
             Menu
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li>
-              <Link className="dropdown-item" to="/dashboard" aria-current="true">
+              <Link
+                className="dropdown-item"
+                to="/dashboard"
+                aria-current="true"
+              >
                 Dashboard
               </Link>
             </li>
@@ -76,7 +82,15 @@ export const Confirmation = () => {
             <p className="transfer-header">Transfer To</p>
             <div className="d-flex align-items-start justify-content-between flex-column flex-xl-row fw9-receiver">
               <div className="d-flex align-items-start gap-2">
-                <img src={recipient.picture ? `https://res.cloudinary.com/dwxrkcas3/image/upload/${recipient.picture}` : '/default-profile-pic.jpg'} alt="user" className="img-fluid profile-pic rounded" />
+                <img
+                  src={
+                    recipient.picture
+                      ? `https://res.cloudinary.com/dwxrkcas3/image/upload/${recipient.picture}`
+                      : "/default-profile-pic.jpg"
+                  }
+                  alt="user"
+                  className="img-fluid profile-pic rounded"
+                />
                 <div className="d-flex flex-column justify-content-between">
                   <h5 className="name-history">{recipient.fullname}</h5>
                   <p className="type-history">{recipient.phone_number}</p>
@@ -94,7 +108,9 @@ export const Confirmation = () => {
             <div className="d-flex align-items-start gap-2 fw9-detail">
               <div className="d-flex flex-column justify-content-between">
                 <h5 className="name-history">Balance Left</h5>
-                <p className="type-history">Rp{profile.balance - dataTransfer.amount}</p>
+                <p className="type-history">
+                  Rp{profile.balance - dataTransfer.amount}
+                </p>
               </div>
             </div>
             <div className="d-flex align-items-start gap-2 fw9-detail">
@@ -171,7 +187,7 @@ export const Confirmation = () => {
         </div>
       </footer>
     </>
-  )
-}
+  );
+};
 
-export default Confirmation
+export default Confirmation;

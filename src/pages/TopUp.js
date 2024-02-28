@@ -37,7 +37,6 @@ function MyVerticallyCenteredModal(props) {
       </Modal.Header>
       <Form onSubmit={onTopup}>
         <Modal.Body>
-          <h4 className="mb-5">Input Amount</h4>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             {/* <Form.Label>Email address</Form.Label> */}
             <Form.Control name="amount" type="text" placeholder="0.0" onChange={handleChangeText} className="text-secondary fw9-input-money text-center fs-1" />

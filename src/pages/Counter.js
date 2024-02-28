@@ -1,14 +1,14 @@
-import Button from 'react-bootstrap/Button';
-import React, { Component } from 'react';
-import { Container } from 'react-bootstrap';
-import { Helmet } from 'react-helmet';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Form from 'react-bootstrap/Form';
-import { Row, Col, Image } from 'react-bootstrap';
+import Button from "react-bootstrap/Button";
+import React, { Component } from "react";
+import { Container } from "react-bootstrap";
+import { Helmet } from "react-helmet";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import Form from "react-bootstrap/Form";
+import { Row, Col, Image } from "react-bootstrap";
 
-import { increment, decrement, customValue } from '../redux/reducers/counter';
-import { getAll } from '../redux/asyncActions/character';
+import { increment, decrement, customValue } from "../redux/reducers/counter";
+import { getAll } from "../redux/asyncActions/character";
 // class Series extends React.Component {
 //   render() {
 //     return <li>{this.props.name}</li>;
@@ -22,9 +22,7 @@ const ListCharacter = () => {
     dispatch(getAll()); //ketik punya action didalam redux harus dipanggilnya di dalam dispatch
   }, [dispatch]);
 
-  React.useEffect(() => {
-    console.log(data);
-  }, [data]);
+  React.useEffect(() => {}, [data]);
   return (
     <div>
       <Row>
@@ -64,15 +62,24 @@ function Wkwkw() {
     <div>
       <Container className="d-flex justify-content-center flex-column gap-4 align-items-center min-vh-100">
         <div className="d-flex justify-content-center gap-4 align-items-center">
-          <Button onClick={() => dispatch(decrement())} className="btn btn-primary">
+          <Button
+            onClick={() => dispatch(decrement())}
+            className="btn btn-primary"
+          >
             -
           </Button>
           <h1>{hahaha}</h1>
-          <Button onClick={() => dispatch(increment())} className="btn btn-primary">
+          <Button
+            onClick={() => dispatch(increment())}
+            className="btn btn-primary"
+          >
             +
           </Button>
         </div>
-        <Form.Control onChange={(e) => dispatch(customValue(e.target.value))} className="text-center" />
+        <Form.Control
+          onChange={(e) => dispatch(customValue(e.target.value))}
+          className="text-center"
+        />
         <Link to="/" className="btn btn-primary">
           To home page
         </Link>

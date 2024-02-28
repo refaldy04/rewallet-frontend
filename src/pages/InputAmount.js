@@ -1,38 +1,47 @@
-import React from 'react'
-import '../asset/css/input-amount.css'
+import React from "react";
+import "../asset/css/input-amount.css";
 // import { Link } from 'react-router-dom';
-import FormInputMoney from '../component/FormInputMoney'
+import FormInputMoney from "../component/FormInputMoney";
 // import Button from 'react-bootstrap/Button';
-import { useDispatch, useSelector } from 'react-redux'
-import { getProfileById } from '../redux/asyncActions/profile'
-import { Link } from 'react-router-dom'
-import { logout } from '../redux/reducers/user'
-import Navbar from '../component/Navbar'
-import Sidebar from '../component/Sidebar'
+import { useDispatch, useSelector } from "react-redux";
+import { getProfileById } from "../redux/asyncActions/profile";
+import { Link } from "react-router-dom";
+import { logout } from "../redux/reducers/user";
+import Navbar from "../component/Navbar";
+import Sidebar from "../component/Sidebar";
 
 export const InputAmount = () => {
-  const recipient_id = useSelector((state) => state.transfer.dataTransfer)
-  const recipient = useSelector((state) => state.transfer.dataRecipient)
-  const dispatch = useDispatch()
+  const recipient_id = useSelector((state) => state.transfer.dataTransfer);
+  const recipient = useSelector((state) => state.transfer.dataRecipient);
+  const dispatch = useDispatch();
   React.useEffect(() => {
-    console.log('ini dari input amount', recipient)
-    dispatch(getProfileById(recipient_id.recipient_id))
-  }, [])
+    dispatch(getProfileById(recipient_id.recipient_id));
+  }, []);
 
   const onLogout = () => {
-    dispatch(logout())
-  }
+    dispatch(logout());
+  };
   return (
     <>
       <Navbar />
       <main>
         <div className="dropdown d-lg-none d-block">
-          <button className="fw9-btn-menu text-light btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <button
+            className="fw9-btn-menu text-light btn dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
             Menu
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li>
-              <Link className="dropdown-item" to="/dashboard" aria-current="true">
+              <Link
+                className="dropdown-item"
+                to="/dashboard"
+                aria-current="true"
+              >
                 Dashboard
               </Link>
             </li>
@@ -67,14 +76,25 @@ export const InputAmount = () => {
             <p className="transfer-header">Transfer Money</p>
             <div className="d-flex align-items-start justify-content-between flex-column flex-xl-row fw9-receiver">
               <div className="d-flex align-items-start gap-2">
-                <img src={recipient.picture ? `https://res.cloudinary.com/dwxrkcas3/image/upload/${recipient.picture}` : '/default-profile-pic.jpg'} alt="" className="img-fluid profile-pic rounded" />
+                <img
+                  src={
+                    recipient.picture
+                      ? `https://res.cloudinary.com/dwxrkcas3/image/upload/${recipient.picture}`
+                      : "/default-profile-pic.jpg"
+                  }
+                  alt=""
+                  className="img-fluid profile-pic rounded"
+                />
                 <div className="d-flex flex-column justify-content-between">
                   <h5 className="name-history">{recipient.fullname}</h5>
                   <p className="type-history">{recipient.phone_number}</p>
                 </div>
               </div>
             </div>
-            <p className="guide-transfer">Type the amount you want to transfer and then press continue to the next steps.</p>
+            <p className="guide-transfer">
+              Type the amount you want to transfer and then press continue to
+              the next steps.
+            </p>
             <div className="d-flex flex-column align-items-center">
               <FormInputMoney />
               {/* <input type="text" className="text-secondary fw9-input-money text-center fs-1" placeholder="0.0" /> */}
@@ -95,7 +115,7 @@ export const InputAmount = () => {
         </div>
       </footer>
     </>
-  )
-}
+  );
+};
 
-export default InputAmount
+export default InputAmount;
