@@ -13,12 +13,13 @@ import { FiLock, FiMail } from "react-icons/fi";
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().email("invalid email format").required("Required"),
-  password: Yup.string().min(4).required("Required"),
+  password: Yup.string().required("Required"),
 });
 
 const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
   const errorMsg = useSelector((state) => state.user.errorMsg);
   const succesMsg = useSelector((state) => state.user.successMsg);
+  const isLoading = useSelector((state) => state.user.isLoading);
 
   return (
     <Form noValidate onSubmit={handleSubmit}>
@@ -27,8 +28,11 @@ const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
 
       <InputGroup className="mb-3" controlid="formBasicEmail">
         {/* <Form.Label>Email address</Form.Label> */}
-        <InputGroup.Text id="basic-addon1">
-          <IconContext.Provider value={{ size: "1.5rem" }}>
+        <InputGroup.Text
+          id="formBasicEmail"
+          className={`${errors.email && "border-danger"}`}
+        >
+          <IconContext.Provider id="formBasicEmail" value={{ size: "1.5rem" }}>
             <div>
               <FiMail />
             </div>
@@ -50,7 +54,10 @@ const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
 
       <InputGroup className="mb-3" controlid="formBasicPassword">
         {/* <Form.Label>Password</Form.Label> */}
-        <InputGroup.Text id="basic-addon1">
+        <InputGroup.Text
+          id="formBasicPassword"
+          className={`${errors.password && "border-danger"}`}
+        >
           <IconContext.Provider value={{ size: "1.5rem" }}>
             <div>
               <FiLock />
@@ -64,6 +71,7 @@ const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
           onChange={handleChange}
           placeholder="Password"
           isInvalid={!!errors.password}
+          aria-activedescendant="formBasicPassword"
         />
         <Form.Control.Feedback type="invalid">
           {errors.password}
@@ -81,8 +89,9 @@ const AuthForm = ({ errors, handleSubmit, handleChange, values }) => {
           variant="primary"
           type="submit"
           className="fw-login-btn text-light"
+          disabled={isLoading}
         >
-          Login
+          {isLoading ? "Loading..." : "Login"}
         </Button>
       </div>
     </Form>

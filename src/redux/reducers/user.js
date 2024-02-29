@@ -1,5 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { login, register, createPin, changePassword, checkEmail, resetPassword } from '../asyncActions/user';
+import { createSlice } from "@reduxjs/toolkit";
+import {
+  login,
+  register,
+  createPin,
+  changePassword,
+  checkEmail,
+  resetPassword,
+} from "../asyncActions/user";
 
 const initialState = {
   token: null,
@@ -7,10 +14,11 @@ const initialState = {
   pin: null,
   errorMsg: null,
   successMsg: null,
+  isLoading: false,
 };
 
 const auth = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     logout: (state) => {
@@ -25,6 +33,7 @@ const auth = createSlice({
     build.addCase(login.pending, (state) => {
       state.errorMsg = null;
       state.successMsg = null;
+      state.isLoading = true;
     });
     build.addCase(login.fulfilled, (state, action) => {
       const token = action.payload?.token;
@@ -40,6 +49,7 @@ const auth = createSlice({
         state.errorMsg = action.payload?.errorMsg;
         state.successMsg = action.payload?.successMsg;
       }
+      state.isLoading = false;
     });
 
     build.addCase(register.pending, (state) => {
