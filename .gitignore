@@ -10,6 +10,14 @@
 
 # production
 /build
+/.next/
+/out/
+/test-results/
+/playwright-report/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
 
 # misc
 .DS_Store
