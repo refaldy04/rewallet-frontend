@@ -43,7 +43,7 @@ export function createDemo() {
       email: "bagas@example.com",
       phone: "0812 1234 0404",
       balance: 4_250_000,
-      hasPin: true,
+      pinSet: true,
     },
     transactions: [
       {
@@ -205,7 +205,7 @@ export function demoTopup(id: string, value: unknown, requestKey: string) {
 export function changeDemoPin(id: string, pin: string) {
   const a = demoAccount(id);
   a.pinHash = scryptSync(pinValue(pin), a.salt, 32);
-  a.profile.hasPin = true;
+  a.profile.pinSet = true;
 }
 export function changeDemoPassword(id: string, current: string, next: string) {
   const a = demoAccount(id);

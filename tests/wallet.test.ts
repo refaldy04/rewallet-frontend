@@ -53,12 +53,14 @@ test("cookie terenkripsi menolak perubahan dan sesi kedaluwarsa", () => {
     id: "user-1",
     mode: "live" as const,
     token: "private-token",
-    hasPin: true,
+    pinSet: true,
     expires: Date.now() + 60000,
   };
   const cookie = encodeSession(session);
   assert.ok(!cookie.includes("private-token"));
   assert.deepEqual(decodeSession(cookie), session);
+  const withoutPin = { ...session, pinSet: false };
+  assert.deepEqual(decodeSession(encodeSession(withoutPin)), withoutPin);
   const parts = cookie.split(".");
   parts[2] = "AA" + parts[2].slice(2);
   assert.equal(decodeSession(parts.join(".")), null);

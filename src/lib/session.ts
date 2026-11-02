@@ -23,6 +23,6 @@ export async function clearSession() {
 export async function requireSession(onboarding = false) {
   const session = await readSession();
   if (!session) redirect("/login");
-  if (!onboarding && !session.hasPin) redirect("/onboarding/pin");
+  if (!onboarding && !session.pinSet) redirect("/onboarding/pin");
   return session;
 }

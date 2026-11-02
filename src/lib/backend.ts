@@ -115,7 +115,7 @@ export function normalizeProfile(data: unknown, session: Session): Profile {
     email: str(p.email),
     phone: str(p.phone_number ?? p.phone),
     balance: p.balance != null && Number.isFinite(n) ? n : null,
-    hasPin: typeof p.hasPin === "boolean" ? p.hasPin : session.hasPin,
+    pinSet: typeof p.pinSet === "boolean" ? p.pinSet : session.pinSet,
     picture:
       typeof p.picture === "string" && p.picture.startsWith("https://")
         ? p.picture

@@ -5,7 +5,7 @@ export type Profile = {
   email: string;
   phone: string;
   balance: number | null;
-  hasPin: boolean;
+  pinSet: boolean;
   picture?: string;
 };
 export type Recipient = { id: string; name: string; phone: string };
@@ -24,7 +24,7 @@ export type Session = {
   mode: "demo" | "live";
   token?: string;
   id: string;
-  hasPin: boolean;
+  pinSet: boolean;
   expires: number;
 };
 export type Draft = {

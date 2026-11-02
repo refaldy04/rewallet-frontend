@@ -120,7 +120,7 @@ export default function AuthForm({
     setError("");
     setMessage("");
     try {
-      const result = await api<{ hasPin?: boolean; message?: string }>(
+      const result = await api<{ pinSet?: boolean; message?: string }>(
         "auth/" + mode,
         "POST",
         {
@@ -133,7 +133,7 @@ export default function AuthForm({
       if (mode === "login") {
         sessionStorage.removeItem("rewallet-draft");
         router.replace(
-          result.hasPin
+          result.pinSet
             ? safeReturnTo(search.get("returnTo"))
             : "/onboarding/pin",
         );

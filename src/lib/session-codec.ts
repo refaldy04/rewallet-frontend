@@ -43,7 +43,7 @@ export function decodeSession(raw?: string): Session | null {
       typeof s.id !== "string" ||
       !s.id ||
       !["demo", "live"].includes(s.mode) ||
-      typeof s.hasPin !== "boolean" ||
+      typeof s.pinSet !== "boolean" ||
       !Number.isFinite(s.expires) ||
       s.expires <= Date.now() ||
       (s.mode === "live" && typeof s.token !== "string")

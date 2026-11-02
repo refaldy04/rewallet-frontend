@@ -6,7 +6,7 @@ import { Loading } from "@/components/ui";
 export const metadata = { title: "Daftar" };
 export default async function RegisterPage() {
   const session = await readSession();
-  if (session) redirect(session.hasPin ? "/dashboard" : "/onboarding/pin");
+  if (session) redirect(session.pinSet ? "/dashboard" : "/onboarding/pin");
   return (
     <Suspense fallback={<Loading />}>
       <AuthForm

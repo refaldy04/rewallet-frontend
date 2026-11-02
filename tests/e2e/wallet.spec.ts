@@ -28,6 +28,30 @@ test("route privat, returnTo, alias lama, dan 404", async ({ page }) => {
     page.getByRole("heading", { name: "Sepertinya kamu tersesat." }),
   ).toBeVisible();
 });
+test("session demo tetap tersimpan setelah refresh dan redirect", async ({
+  page,
+}) => {
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Coba akun demo" }).click();
+  await expect(page).toHaveURL("/dashboard");
+  await page.reload();
+  await expect(
+    page.getByRole("heading", { name: "Halo, Bagas." }),
+  ).toBeVisible();
+  for (const path of ["/", "/login", "/sign-up", "/onboarding/pin"]) {
+    await page.goto(path);
+    await expect(page).toHaveURL("/dashboard");
+  }
+  const profile = await page.request.get("/api/wallet/profile");
+  expect(profile.ok()).toBeTruthy();
+  expect((await profile.json()).pinSet).toBe(true);
+  const logout = await page.request.post("/api/wallet/auth/logout", {
+    headers: { Origin: new URL(page.url()).origin },
+    data: {},
+  });
+  expect(logout.ok()).toBeTruthy();
+});
+
 test("demo: transfer, PIN salah, refresh draft, isi saldo, profil, logout", async ({
   page,
   context,

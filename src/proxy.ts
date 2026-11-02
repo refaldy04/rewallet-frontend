@@ -10,7 +10,7 @@ export function proxy(request: NextRequest) {
     );
     return NextResponse.redirect(url);
   }
-  if (!session.hasPin && !request.nextUrl.pathname.startsWith("/onboarding/"))
+  if (!session.pinSet && !request.nextUrl.pathname.startsWith("/onboarding/"))
     return NextResponse.redirect(new URL("/onboarding/pin", request.url));
   return NextResponse.next();
 }

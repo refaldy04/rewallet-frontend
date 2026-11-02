@@ -4,6 +4,6 @@ import { OnboardingPin } from "@/components/profile";
 export const metadata = { title: "Buat PIN" };
 export default async function Page() {
   const session = await requireSession(true);
-  if (session.hasPin) redirect("/dashboard");
+  if (session.pinSet) redirect("/dashboard");
   return <OnboardingPin />;
 }

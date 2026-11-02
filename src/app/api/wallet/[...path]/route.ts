@@ -108,7 +108,7 @@ async function handler(
       session = {
         id: createDemo(),
         mode: "demo",
-        hasPin: true,
+        pinSet: true,
         expires: Date.now() + 28_800_000,
       };
       await writeSession(session);
@@ -126,17 +126,14 @@ async function handler(
         mode: "live",
         id: String(result.user_id ?? result.id ?? randomUUID()),
         token: result.token,
-        hasPin:
-          typeof result.hasPin === "boolean"
-            ? result.hasPin
-            : Boolean(result.pin),
+        pinSet: Boolean(result.pinSet),
         expires: Date.now() + 28_800_000,
       };
       const profile = await getProfile(session);
       session.id = profile.id;
-      session.hasPin = profile.hasPin;
+      session.pinSet = profile.pinSet;
       await writeSession(session);
-      return json({ hasPin: session.hasPin });
+      return json({ pinSet: session.pinSet });
     }
     if (path === "auth/register" && request.method === "POST") {
       await backend("/auth/register", null, "POST", {
@@ -184,7 +181,7 @@ async function handler(
     }
     if (!session) throw new AppError("Silakan masuk kembali.", 401);
     if (path === "onboarding/pin" && request.method === "POST") {
-      if (session.hasPin)
+      if (session.pinSet)
         throw new AppError(
           "PIN sudah dibuat. Gunakan pengaturan ganti PIN.",
           409,
@@ -198,11 +195,11 @@ async function handler(
           email: profile.email,
         });
       }
-      session.hasPin = true;
+      session.pinSet = true;
       await writeSession(session);
       return json({ ok: true });
     }
-    if (!session.hasPin)
+    if (!session.pinSet)
       throw new AppError("Buat PIN sebelum melanjutkan.", 403, "ONBOARDING");
     if (request.method === "GET") {
       const page = Math.max(

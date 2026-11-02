@@ -6,7 +6,7 @@ import { Brand, Icon, LinkButton } from "@/components/ui";
 import ProductPreview from "@/components/product-preview";
 export default async function LandingPage() {
   const session = await readSession();
-  if (session) redirect(session.hasPin ? "/dashboard" : "/onboarding/pin");
+  if (session) redirect(session.pinSet ? "/dashboard" : "/onboarding/pin");
   return (
     <div className="landing">
       <a className="skip-link" href="#tentang">
