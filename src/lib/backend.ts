@@ -56,7 +56,7 @@ export async function backend(
       redirect: "error",
       signal: AbortSignal.timeout(15_000),
     });
-  } catch {
+  } catch (error) {
     throw new AppError(
       method === "GET"
         ? "Layanan tidak merespons. Coba muat ulang."
@@ -144,7 +144,13 @@ export function normalizeTransaction(
       "UNCERTAIN",
     );
   const kind =
-    t.kind === "topup" || Number(t.type_id) === 2 ? "topup" : "transfer";
+    t.type_code != null
+      ? t.type_code === "TOPUP"
+        ? "topup"
+        : "transfer"
+      : t.kind === "topup" || Number(t.type_id) === 2
+        ? "topup"
+        : "transfer";
   const sender = str(t.sender_id ?? t.senderId),
     recipient = str(t.recipient_id ?? t.recipientId);
   const direction =
@@ -154,13 +160,17 @@ export function normalizeTransaction(
         ? "out"
         : recipient === userId
           ? "in"
-          : t.direction === "in" || t.direction === "out"
-            ? t.direction
-            : "unknown";
+          : t.direction === "CREDIT" || t.direction === "in"
+            ? "in"
+            : t.direction === "DEBIT" || t.direction === "out"
+              ? "out"
+              : "unknown";
   const rawStatus = str(t.status).toLowerCase();
-  const status = ["success", "completed", "berhasil"].includes(rawStatus)
+  const status = ["success", "succeeded", "completed", "berhasil"].includes(
+    rawStatus,
+  )
     ? "success"
-    : ["failed", "rejected", "gagal"].includes(rawStatus)
+    : ["failed", "rejected", "canceled", "expired", "gagal"].includes(rawStatus)
       ? "failed"
       : "pending";
   return {

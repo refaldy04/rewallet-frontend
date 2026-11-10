@@ -8,6 +8,8 @@ import {
   getRecipient,
   getActivity,
   getTransaction,
+  getTopupMethods,
+  getTopup,
 } from "@/lib/data";
 import {
   createDemo,
@@ -27,6 +29,7 @@ import {
   passwordValue,
   emailValue,
 } from "@/lib/validation";
+import { normalizeTopup, topupAmountValue } from "@/lib/topup";
 export const runtime = "nodejs";
 const state = globalThis as typeof globalThis & {
   rewalletLimits?: Map<string, { count: number; until: number }>;
@@ -218,6 +221,9 @@ async function handler(
       if (parts[0] === "recipients" && parts.length === 2)
         return json(await getRecipient(session, parts[1]));
       if (path === "activity") return json(await getActivity(session, page));
+      if (path === "topup/methods") return json(await getTopupMethods(session));
+      if (parts[0] === "topups" && parts.length === 2)
+        return json(await getTopup(session, parts[1]));
       if (parts[0] === "transactions" && parts.length === 2)
         return json(await getTransaction(session, parts[1]));
     }
@@ -265,31 +271,35 @@ async function handler(
       return json(transaction);
     }
     if (path === "topup" && request.method === "POST") {
-      const amount = amountValue(body.amount),
-        key = textValue(body.key, "ID permintaan", 16, 100);
+      const key = textValue(body.key, "ID permintaan", 16, 100);
       if (session.mode === "demo")
-        return json(demoTopup(session.id, amount, key));
-      if (!process.env.BACKEND_TRANSACTION_PATH)
-        throw new AppError(
-          "Isi saldo menunggu dukungan status transaksi dari layanan.",
-          501,
-        );
+        return json(demoTopup(session.id, amountValue(body.amount), key));
+      const amount = topupAmountValue(body.amount);
+      const channelCode = textValue(
+        body.channelCode,
+        "Metode pembayaran",
+        1,
+        50,
+      );
+      if (!/^[A-Z_]+$/.test(channelCode))
+        throw new AppError("Metode pembayaran tidak valid.");
+      // The backend validates the configured limits and allows replays even if a channel is later disabled.
       const data = await backend(
         "/topup",
         session,
         "POST",
-        { amount },
+        { amount: String(amount), channel_code: channelCode },
         { "Idempotency-Key": key },
       );
-      const transaction = normalizeTransaction(resultRow(data), session.id);
-      if (!transaction.id)
-        throw new AppError(
-          "Status isi saldo belum pasti. Periksa Aktivitas sebelum mencoba kembali.",
-          502,
-          "UNCERTAIN",
-        );
-      return json(transaction);
+      return json(normalizeTopup(data));
     }
+    if (
+      parts[0] === "topups" &&
+      parts.length === 3 &&
+      parts[2] === "refresh" &&
+      request.method === "POST"
+    )
+      return json(await getTopup(session, parts[1], true));
     if (path === "profile" && request.method === "PATCH") {
       const name = textValue(body.name, "Nama lengkap", 2, 80);
       if (session.mode === "demo") demoAccount(session.id).profile.name = name;

@@ -10,6 +10,24 @@ import {
 } from "./backend";
 import { demoAccount, demoRecipients } from "./demo";
 import { AppError, idValue } from "./validation";
+import { normalizeTopup, normalizeTopupMethods, topupIdValue } from "./topup";
+export async function getTopupMethods(session: Session) {
+  return normalizeTopupMethods(await backend("/topup/methods", session));
+}
+export async function getTopup(session: Session, id: string, refresh = false) {
+  topupIdValue(id);
+  if (session.mode === "demo")
+    throw new AppError("Pembayaran tidak tersedia pada akun demo.", 404);
+  const payment = normalizeTopup(
+    await backend(
+      `/topups/${encodeURIComponent(id)}${refresh ? "/refresh" : ""}`,
+      session,
+      refresh ? "POST" : "GET",
+    ),
+  );
+  if (payment.id !== id) throw new AppError("Isi saldo tidak ditemukan.", 404);
+  return payment;
+}
 export async function getProfile(session: Session) {
   return session.mode === "demo"
     ? demoAccount(session.id).profile

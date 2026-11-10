@@ -20,6 +20,43 @@ export type Transaction = {
   notes: string;
 };
 export type PageInfo = { page: number; totalPages: number };
+export type TopupMethod = {
+  channelCode: string;
+  name: string;
+  minAmount: number;
+  maxAmount: number;
+};
+export type TopupAction = {
+  descriptor: "WEB_URL" | "DEEPLINK_URL" | "QR_STRING";
+  value: string;
+};
+export type TopupPayment = {
+  id: string;
+  amount: number;
+  channelCode: string;
+  status:
+    | "CREATED"
+    | "UNKNOWN"
+    | "PENDING"
+    | "REQUIRES_ACTION"
+    | "ACCEPTING_PAYMENTS"
+    | "AUTHORIZED"
+    | "SUCCEEDED"
+    | "FAILED"
+    | "CANCELED"
+    | "EXPIRED";
+  transactionId: string | null;
+  actions: TopupAction[];
+  expiresAt: string;
+  paidAt: string;
+  createdAt: string;
+};
+export type TopupIntent = {
+  key: string;
+  amount: number;
+  channelCode: string;
+  id?: string;
+};
 export type Session = {
   mode: "demo" | "live";
   token?: string;

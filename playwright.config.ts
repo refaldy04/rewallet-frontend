@@ -24,15 +24,22 @@ export default defineConfig({
       },
     },
   ],
-  webServer: {
-    command: "npm run dev -- --port 3100",
-    url: "http://localhost:3100",
-    reuseExistingServer: !process.env.CI,
-    timeout: 120000,
-    env: {
-      SESSION_SECRET: "rewallet-e2e-only-secret-at-least-32-characters",
-      DEMO_ENABLED: "true",
-      BACKEND_URL: "",
+  webServer: [
+    {
+      command: "node --import tsx tests/fixtures/topup-backend.ts",
+      url: "http://127.0.0.1:3201/health",
+      reuseExistingServer: !process.env.CI,
     },
-  },
+    {
+      command: "npm run dev -- --port 3100",
+      url: "http://localhost:3100",
+      reuseExistingServer: !process.env.CI,
+      timeout: 120000,
+      env: {
+        SESSION_SECRET: "rewallet-e2e-only-secret-at-least-32-characters",
+        DEMO_ENABLED: "true",
+        BACKEND_URL: "http://127.0.0.1:3201",
+      },
+    },
+  ],
 });

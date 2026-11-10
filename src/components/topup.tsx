@@ -8,7 +8,13 @@ import { money } from "@/lib/format";
 import type { Transaction } from "@/lib/types";
 import { useWallet } from "./wallet-shell";
 import { Icon, LinkButton, PageHead, Panel } from "./ui";
-export default function Topup() {
+import LiveTopup from "./live-topup";
+export default function Topup({ topupId }: { topupId?: string }) {
+  const { demo, profile } = useWallet();
+  if (demo) return <DemoTopup />;
+  return <LiveTopup key={profile?.id} userId={profile?.id} topupId={topupId} />;
+}
+function DemoTopup() {
   const { profile, demo, refresh } = useWallet(),
     router = useRouter();
   const [amount, setAmount] = useState("100000"),

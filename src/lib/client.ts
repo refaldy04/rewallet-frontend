@@ -52,7 +52,9 @@ export async function api<T>(
       sessionStorage.removeItem("rewallet-draft");
       window.dispatchEvent(
         new CustomEvent("rewallet-navigate", {
-          detail: "/login?returnTo=" + encodeURIComponent(location.pathname),
+          detail:
+            "/login?returnTo=" +
+            encodeURIComponent(location.pathname + location.search),
         }),
       );
     }

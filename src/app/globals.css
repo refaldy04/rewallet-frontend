@@ -691,6 +691,18 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
   }
+  .payment-qr {
+    display: grid;
+    justify-items: center;
+    gap: 16px;
+    text-align: center;
+    color: #60726a;
+  }
+  .payment-qr svg {
+    max-width: 100%;
+    height: auto;
+    background: white;
+  }
   .topup-layout {
     display: grid;
     grid-template-columns: 1.35fr 1fr;

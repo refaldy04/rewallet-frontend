@@ -25,7 +25,7 @@ npm run build
 npm start
 ```
 
-Pengujian E2E memakai Chrome desktop dan viewport iPhone melalui Playwright. Install Google Chrome atau ubah `channel: 'chrome'` di `playwright.config.ts` sesuai browser yang tersedia. Test server menggunakan port 3100, tanpa mengakses backend asli.
+Pengujian E2E memakai Chrome desktop dan viewport iPhone melalui Playwright. Install Google Chrome atau ubah `channel: 'chrome'` di `playwright.config.ts` sesuai browser yang tersedia. Test server menggunakan port 3100 dan backend HTTP tiruan di port 3201, tanpa mengakses backend atau Xendit asli.
 
 Untuk produksi, set **SESSION_SECRET** acak minimal 32 karakter, misalnya hasil `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`. Secret harus sama di semua instance. Gunakan HTTPS. Demo dimatikan di produksi; aktifkan `DEMO_ENABLED=true` hanya untuk preview yang memang membutuhkan simulasi. Jalankan ulang build setelah mengganti konfigurasi ketersediaan form auth/recovery karena beberapa halaman publik diprarender.
 
@@ -57,11 +57,29 @@ Demo memverifikasi hash PIN di server, membatasi percobaan, dan memakai idempote
 | Aktivitas            | `GET /historyTransaction?limit=8&page=`                            |
 | Onboarding           | `POST /auth/createPin` dengan PIN dan email dari profil sesi       |
 | Password             | `PATCH /changePassword` dengan `password`, `newpassword`           |
-| Transfer / isi saldo | `POST /transfer`, `POST /topup` dengan `Idempotency-Key`           |
+| Transfer             | `POST /transfer` dengan `Idempotency-Key`                        |
+| Metode isi saldo     | `GET /topup/methods`                                              |
+| Buat isi saldo       | `POST /topup`, body `amount`, `channel_code`, header `Idempotency-Key` |
+| Status isi saldo     | `GET /topups/:id`, `POST /topups/:id/refresh`                      |
 
-Respons login: `{ result: { token, user_id, hasPin } }`; legacy `pin` hanya diturunkan menjadi boolean dan tidak diteruskan. Profil dapat berupa `{ result: profile }` atau `{ result: [profile] }`. Daftar: `{ result: [...], pageInfo: { totalPages } }`. Sesuaikan adapter bila kontrak deployment berbeda, termasuk izin endpoint lookup penerima yang saat ini mengikuti path lama.
+Respons login: `{ result: { token, user_id, pinSet } }`; PIN tidak dikirim ke browser. Profil dapat berupa `{ result: profile }` atau `{ result: [profile] }`. Daftar: `{ result: [...], pageInfo: { totalPages } }`. Sesuaikan adapter bila kontrak deployment berbeda, termasuk izin endpoint lookup penerima yang saat ini mengikuti path lama.
 
-**Transfer uang nyata sengaja belum diaktifkan secara default.** Audit source lama tidak membuktikan backend memverifikasi PIN. Aktifkan `BACKEND_TRANSFER_SUPPORTS_PIN=true` hanya setelah `/transfer` memvalidasi PIN, saldo, penerima, otorisasi, dan idempotency key secara atomik di server. Isi `BACKEND_TRANSACTION_PATH`, misalnya `/transactions`, agar detail dapat diambil dari `GET /transactions/:id` menggunakan token sesi. Isi saldo juga memerlukan detail/status transaksi sebelum diaktifkan. Tidak ada nomor VA, pilihan bank, PDF, atau tombol share palsu.
+**Transfer uang nyata sengaja belum diaktifkan secara default.** Aktifkan `BACKEND_TRANSFER_SUPPORTS_PIN=true` hanya setelah `/transfer` memvalidasi PIN, saldo, penerima, otorisasi, dan idempotency key secara atomik di server. Isi `BACKEND_TRANSACTION_PATH`, misalnya `/transactions`, agar detail dapat diambil dari `GET /transactions/:id` menggunakan token sesi. Isi saldo Xendit memakai endpoint status pembayaran sendiri dan tidak memerlukan variabel tersebut.
+
+### Isi saldo Xendit
+
+Set `BACKEND_URL` di `.env.local` ke backend yang menjalankan kontrak Xendit Payment Requests v3 sesuai README `fw9-backend`. Pada **environment backend**, aktifkan dan konfigurasi Xendit dalam test mode terlebih dahulu, termasuk kanal, credential, dan webhook. Atur kedua return URL ke halaman frontend berikut:
+
+```dotenv
+XENDIT_SUCCESS_RETURN_URL=http://localhost:3000/top-up
+XENDIT_FAILURE_RETURN_URL=http://localhost:3000/top-up
+```
+
+Gunakan origin HTTPS frontend pada deployment. Backend menambahkan `topup_id`; frontend membaca status dari `/topups/:id`, bukan parameter status atau nama halaman return. Secret Xendit tetap berada di backend.
+
+Halaman isi saldo mengambil metode dan batas nominal dari `/topup/methods`, kemudian mengirim nominal sebagai string rupiah dan `channel_code`. Tautan web/deeplink dibuka dari aksi backend, sedangkan `QR_STRING` dirender menjadi kode QR lokal. Kunci idempotensi, nominal, metode, dan ID pembayaran disimpan di `sessionStorage` per akun agar refresh atau respons yang hilang melanjutkan permintaan yang sama. Saat browser tidak dapat menyimpan permintaan baru, pembuatan pembayaran diblokir dengan pesan yang sesuai.
+
+Status dipantau melalui GET lokal dengan jeda bertahap 2–30 detik. Tombol **Periksa status pembayaran** memanggil `/refresh` untuk rekonsiliasi atas permintaan pengguna. Status berhasil hanya ditampilkan jika backend mengembalikan `SUCCEEDED` **dan** `transaction_id`; setelah itu profil/saldo dimuat ulang. Pembayaran gagal, dibatalkan, atau kedaluwarsa tidak menampilkan aksi pembayaran. Selama hasil belum pasti, halaman memulihkan permintaan sebelumnya dan mempertahankan key yang sama. Mode demo tetap berupa simulasi terpisah.
 
 Kontrak transaksi untuk mutasi dan detail: `{ result: { id, amount, status, sender_id, recipient_id, fullname, created_at, notes, type_id } }`. Status harus eksplisit (`success`/`completed`, `failed`/`rejected`, atau `pending`). Respons tanpa status diperlakukan sebagai menunggu, tanpa arah pengirim/penerima tidak diasumsikan sebagai pengeluaran. Detail ID wajib diotorisasi backend untuk akun tersebut. Respons mutasi tanpa ID atau timeout dianggap belum pasti; pengguna diminta memeriksa aktivitas sebelum mencoba kembali.
 
@@ -88,4 +106,4 @@ tests/                Unit/integrasi domain dan E2E desktop/mobile
 public/images/        Aset landing yang dipertahankan
 ```
 
-Backend produksi tidak tersedia dalam workspace ini. Pengujian demo tidak membuktikan payment gateway, kontrak API produksi, atau keamanan backend lama telah diverifikasi.
+Pengujian unit dan E2E isi saldo menggunakan kontrak backend lokal serta respons Xendit tiruan. Pembayaran test-mode sungguhan, pengiriman webhook, dan return dari Xendit tetap perlu diuji pada environment yang telah dikonfigurasi sebelum produksi.
